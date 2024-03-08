@@ -824,7 +824,6 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'manyToOne',
       'api::vendor.vendor'
     >;
-    image: Attribute.Media & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
