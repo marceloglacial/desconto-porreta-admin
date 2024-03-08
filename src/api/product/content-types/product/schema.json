@@ -41,6 +41,14 @@
       "relation": "manyToOne",
       "target": "api::vendor.vendor",
       "inversedBy": "produtos"
+    },
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
     }
   }
 }
