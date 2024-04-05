@@ -1,60 +1,61 @@
+import Link from "next/link"
 
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { getProducts } from '@/lib/products'
-import TableProductItem from '@/components/table-product-item'
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
-export default async function Dashboard() {
-
-  const products = await getProducts();
-  const allProducts = products.data
-
+export default function Login() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Produtos</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="hidden w-[100px] sm:table-cell">
-                Image,
-              </TableHead>
-              <TableHead>Nome</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="hidden md:table-cell">
-                Preço
-              </TableHead>
-              <TableHead>
-                <span className="sr-only">Actions</span>
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {allProducts.map(product => <TableProductItem key={product.id} {...product} />)}
-          </TableBody>
-        </Table>
-      </CardContent>
-      <CardFooter>
-        <div className="text-xs text-muted-foreground">
-          Showing <strong>{allProducts.length}</strong> of <strong>{allProducts.length}</strong>{" "}
-          products
-        </div>
-      </CardFooter>
-    </Card>
+    <div className='w-screen h-screen flex items-center justify-center'>
+      <Card className="mx-auto max-w-sm">
+        <CardHeader>
+          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardDescription>
+            Entre com seu email para logar na sua conta
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="m@examplo.com"
+                required
+              />
+            </div>
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="password">Senha</Label>
+                <Link href="#" className="ml-auto inline-block text-sm underline">
+                  Esqueceu sua senha?
+                </Link>
+              </div>
+              <Input id="password" type="password" required />
+            </div>
+            <Button asChild>
+              <a href="/dashboard">Login</a>
+            </Button>
+            {/* <Button variant="outline" className="w-full">
+              Login with Google
+            </Button> */}
+          </div>
+          {/* <div className="mt-4 text-center text-sm">
+            Don&apos;t have an account?{" "}
+            <Link href="#" className="underline">
+              Sign up
+            </Link>
+          </div> */}
+        </CardContent>
+      </Card>
+    </div>
   )
 }
