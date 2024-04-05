@@ -1,36 +1,39 @@
 {
   "name": "desconto-porreta-admin",
-  "private": true,
   "version": "0.1.0",
-  "description": "A Strapi application",
+  "private": true,
   "scripts": {
-    "develop": "strapi develop",
-    "start": "strapi start",
-    "build": "strapi build",
-    "strapi": "strapi"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "devDependencies": {},
   "dependencies": {
-    "@strapi/plugin-cloud": "4.20.4",
-    "@strapi/plugin-i18n": "4.20.4",
-    "@strapi/plugin-users-permissions": "4.20.4",
-    "@strapi/provider-upload-cloudinary": "^4.20.4",
-    "@strapi/strapi": "4.20.4",
-    "pg": "8.8.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-router-dom": "5.3.4",
-    "styled-components": "5.3.3"
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-progress": "^1.0.3",
+    "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tabs": "^1.0.4",
+    "@radix-ui/react-tooltip": "^1.0.7",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.364.0",
+    "next": "14.1.4",
+    "react": "^18",
+    "react-dom": "^18",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss-animate": "^1.0.7"
   },
-  "author": {
-    "name": "A Strapi developer"
-  },
-  "strapi": {
-    "uuid": "d2818f46-2dc4-49d2-b43b-8eef908907ec"
-  },
-  "engines": {
-    "node": ">=18.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
-  },
-  "license": "MIT"
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.4",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  }
 }
