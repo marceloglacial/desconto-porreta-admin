@@ -22,7 +22,7 @@ const TableProductItem = (props: IProduct) => {
             {title}
         </TableCell>
         <TableCell>
-            <Badge variant="outline">Draft</Badge>
+            <Badge variant="outline">Rascunho</Badge>
         </TableCell>
         <TableCell className="hidden md:table-cell">
             {price.regular}
@@ -40,9 +40,9 @@ const TableProductItem = (props: IProduct) => {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                    <DropdownMenuItem>Delete</DropdownMenuItem>
+                    <DropdownMenuLabel>Açoes</DropdownMenuLabel>
+                    <DropdownMenuItem>Editar</DropdownMenuItem>
+                    <DropdownMenuItem>Apagar</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         </TableCell>

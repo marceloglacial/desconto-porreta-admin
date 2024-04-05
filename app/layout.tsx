@@ -94,12 +94,12 @@ export default function RootLayout({
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
                       <BreadcrumbLink asChild>
-                        <Link href="#">Products</Link>
+                        <Link href="#">Produtos</Link>
                       </BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                      <BreadcrumbPage>All Products</BreadcrumbPage>
+                      <BreadcrumbPage>Todos os produtos</BreadcrumbPage>
                     </BreadcrumbItem>
                   </BreadcrumbList>
                 </Breadcrumb>

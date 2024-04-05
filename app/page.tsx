@@ -25,22 +25,19 @@ export default async function Dashboard() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Products</CardTitle>
-        <CardDescription>
-          Manage your products and view their sales performance.
-        </CardDescription>
+        <CardTitle>Produtos</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead className="hidden w-[100px] sm:table-cell">
-                Image
+                Image,
               </TableHead>
-              <TableHead>Name</TableHead>
+              <TableHead>Nome</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="hidden md:table-cell">
-                Price
+                Preço
               </TableHead>
               <TableHead>
                 <span className="sr-only">Actions</span>
@@ -54,7 +51,7 @@ export default async function Dashboard() {
       </CardContent>
       <CardFooter>
         <div className="text-xs text-muted-foreground">
-          Showing <strong>1-10</strong> of <strong>32</strong>{" "}
+          Showing <strong>{allProducts.length}</strong> of <strong>{allProducts.length}</strong>{" "}
           products
         </div>
       </CardFooter>
