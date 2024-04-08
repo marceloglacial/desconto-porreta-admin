@@ -42,7 +42,7 @@ export default function Login() {
               <Input id="password" type="password" required />
             </div>
             <Button asChild>
-              <a href="/dashboard">Login</a>
+              <a href="/admin">Login</a>
             </Button>
             {/* <Button variant="outline" className="w-full">
               Login with Google

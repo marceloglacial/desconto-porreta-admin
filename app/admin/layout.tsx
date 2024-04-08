@@ -4,10 +4,11 @@ import Aside from '@/components/aside';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet';
-import { PanelLeft, Package2, Home, ShoppingCart, Package, Users2, LineChart, PlusCircle } from 'lucide-react';
+import { PanelLeft, Package2, Home, ShoppingCart, Package, Users2, LineChart } from 'lucide-react';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
+import NavBar from '@/components/navbar';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,50 +38,7 @@ export default function RootLayout({
                     </Button>
                   </SheetTrigger>
                   <SheetContent side="left" className="sm:max-w-xs">
-                    <nav className="grid gap-6 text-lg font-medium">
-                      <Link
-                        href="/dashboard"
-                        className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
-                      >
-                        <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
-                        <span className="sr-only">Acme Inc</span>
-                      </Link>
-                      <Link
-                        href="#"
-                        className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                      >
-                        <Home className="h-5 w-5" />
-                        Dashboard
-                      </Link>
-                      <Link
-                        href="#"
-                        className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                      >
-                        <ShoppingCart className="h-5 w-5" />
-                        Orders
-                      </Link>
-                      <Link
-                        href="#"
-                        className="flex items-center gap-4 px-2.5 text-foreground"
-                      >
-                        <Package className="h-5 w-5" />
-                        Products
-                      </Link>
-                      <Link
-                        href="#"
-                        className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                      >
-                        <Users2 className="h-5 w-5" />
-                        Customers
-                      </Link>
-                      <Link
-                        href="#"
-                        className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                      >
-                        <LineChart className="h-5 w-5" />
-                        Settings
-                      </Link>
-                    </nav>
+                    <NavBar />
                   </SheetContent>
                 </Sheet>
                 <Breadcrumb className="hidden md:flex">
@@ -133,17 +91,6 @@ export default function RootLayout({
                 </div>
               </header>
               <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-                <div className="flex items-center">
-                  <div className="flex items-center gap-2">
-                    <Button size="sm" className="h-8 gap-1">
-                      <PlusCircle className="h-3.5 w-3.5" />
-                      <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                        Adicionar Novo Produto
-                      </span>
-                    </Button>
-                  </div>
-                </div>
-
                 {children}
               </main>
             </div>

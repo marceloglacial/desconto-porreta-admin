@@ -3,20 +3,23 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { TableRow, TableCell } from '@/components/ui/table'
 import { MoreHorizontal } from 'lucide-react'
+import Link from 'next/link'
 
 const TableProductItem = (props: IProduct) => {
 
-    const { title, image, price } = props
+    const { id, title, image, price } = props
 
     return <TableRow>
         <TableCell className="hidden sm:table-cell">
-            <img
-                alt={image.alt}
-                className="aspect-square rounded-md object-cover"
-                height="64"
-                src={image.src}
-                width="64"
-            />
+            <Link href={`admin/product/${id}`} >
+                <img
+                    alt={image.alt}
+                    className="aspect-square rounded-md object-cover"
+                    height="64"
+                    src={image.src}
+                    width="64"
+                />
+            </Link>
         </TableCell>
         <TableCell className="font-medium">
             {title}
