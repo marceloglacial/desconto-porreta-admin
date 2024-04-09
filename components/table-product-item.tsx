@@ -4,14 +4,15 @@ import { Button } from '@/components/ui/button'
 import { TableRow, TableCell } from '@/components/ui/table'
 import { MoreHorizontal } from 'lucide-react'
 import Link from 'next/link'
+import { FC } from 'react'
 
-const TableProductItem = (props: IProduct) => {
+const TableProductItem: FC<IProduct> = ({ id, title, image, price }): JSX.Element => {
 
-    const { id, title, image, price } = props
+    const link = `admin/product/${id}`
 
     return <TableRow>
-        <TableCell className="hidden sm:table-cell">
-            <Link href={`admin/product/${id}`} >
+        <TableCell className="">
+            <Link href={link}>
                 <img
                     alt={image.alt}
                     className="aspect-square rounded-md object-cover"
@@ -22,10 +23,9 @@ const TableProductItem = (props: IProduct) => {
             </Link>
         </TableCell>
         <TableCell className="font-medium">
-            {title}
-        </TableCell>
-        <TableCell>
-            <Badge variant="outline">Rascunho</Badge>
+            <Link href={link}>
+                <span className='line-clamp-3'>{title}</span>
+            </Link>
         </TableCell>
         <TableCell className="hidden md:table-cell">
             {price.regular}
@@ -39,12 +39,12 @@ const TableProductItem = (props: IProduct) => {
                         variant="ghost"
                     >
                         <MoreHorizontal className="h-4 w-4" />
-                        <span className="sr-only">Toggle menu</span>
+                        <span className="sr-only">Menu</span>
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Açoes</DropdownMenuLabel>
-                    <DropdownMenuItem>Editar</DropdownMenuItem>
+                    <DropdownMenuLabel>Ações</DropdownMenuLabel>
+                    <DropdownMenuItem><Link href={link}>Editar</Link></DropdownMenuItem>
                     <DropdownMenuItem>Apagar</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

@@ -28,7 +28,7 @@ export default async function Dashboard() {
                 <div className="flex items-center gap-2">
                     <Button size="sm" className="h-8 gap-1">
                         <PlusCircle className="h-3.5 w-3.5" />
-                        <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                        <span className="sm:whitespace-nowrap">
                             Adicionar Novo Produto
                         </span>
                     </Button>
@@ -42,11 +42,10 @@ export default async function Dashboard() {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="hidden w-[100px] sm:table-cell">
-                                    Image,
+                                <TableHead className="w-[100px]">
+                                    Imagem
                                 </TableHead>
                                 <TableHead>Nome</TableHead>
-                                <TableHead>Status</TableHead>
                                 <TableHead className="hidden md:table-cell">
                                     Preço
                                 </TableHead>

@@ -24,8 +24,8 @@ const formatProduct = (product: ApiProduct): IProduct => {
             slug: vendorInfo.slug,
         },
         price: {
-            regular: price.regular,
-            discount: price.discount || undefined,
+            regular: getCurrency(price.regular),
+            discount: price.discount ? getCurrency(price.discount) : undefined,
         },
     };
 }
