@@ -9,9 +9,12 @@ export interface NavBarProps {
 
 const NavBar: FC<NavBarProps> = ({ variant }): JSX.Element => {
 
+    const isMobile = variant === 'mobile'
+    const fontStyle = `text-lg font-medium`
+
     const navbarStyles = {
         desktop: `flex flex-col items-center gap-4 px-2 sm:py-5`,
-        mobile: `grid gap-6 text-lg font-medium`
+        mobile: `grid gap-4 text-lg font-medium ${fontStyle} mt-8`
     }
 
     const items: NavbarItem[] = [
@@ -58,7 +61,7 @@ const NavBar: FC<NavBarProps> = ({ variant }): JSX.Element => {
                 {topItems.map((item, index) => <NavBarItem key={index} {...item} />)}
 
             </nav>
-            <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+            <nav className={isMobile ? `${fontStyle} mt-4` : 'mt-auto flex flex-col items-center gap-4 px-2 sm:py-5'}>
                 {bottomItems.map((item, index) => <NavBarItem key={index} {...item} />)}
             </nav>
         </>
