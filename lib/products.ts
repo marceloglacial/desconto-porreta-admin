@@ -43,6 +43,21 @@ export const getProducts = async (): Promise<IgetProducts> => {
     return result
 };
 
+export const postProducts = async (postData: any) => {
+    const res = await fetch(`${process.env.API_URL}/api/products`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+    })
+    if (!res.ok) {
+        throw new Error('Error')
+    }
+    const apiData = await res.json()
+    console.log('Response data:', apiData);
+};
+
 export const getSingleProduct = async (id: string): Promise<IProduct | undefined> => {
     const apiData = await getProducts()
     return (
