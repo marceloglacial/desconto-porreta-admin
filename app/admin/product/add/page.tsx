@@ -23,37 +23,38 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import Link from 'next/link'
 import { getVendors } from '@/lib/vendors'
+import { postProducts } from '@/lib/products'
 
-
-const postData = async (formData) => {
-    const response = await fetch(
-        "https://crudcrud.com/api/552f0f03412347c6a679bb7672d83630/unicorns",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-        }
-    );
-    return response.json;
-};
-
+function sanitizePost(obj) {
+    Object.keys(obj).forEach(key => key.startsWith('$ACTION_ID_') && delete obj[key]);
+    delete obj.file
+    delete obj['price-regular']
+    delete obj['price-discount']
+}
 
 export default async function ProductAdd() {
     const allVendors = (await getVendors()).data
     const hasVendors = allVendors.length > 0
 
-    async function addToCart(formData) {
+    async function addProduct(formData) {
         "use server";
-        const productId = Object.fromEntries(formData);
-        console.log(productId);
-
-        await postData(productId);
+        const product = Object.fromEntries(formData);
+        product.price = {
+            regular: parseInt(formData.get('price-regular')),
+            discount: parseInt(formData.get('price-discount'))
+        }
+        product.image = {
+            src: formData.get('file'),
+            alt: '',
+            width: 150,
+            height: 150
+        }
+        sanitizePost(product)
+        await postProducts(product);
     }
 
     return (
-        <form action={addToCart} >
+        <form action={addProduct} >
             <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
                 <div className="flex items-center gap-4">
                     <Button variant="outline" size="icon" className="h-7 w-7">
@@ -81,7 +82,8 @@ export default async function ProductAdd() {
                                     <div className="grid gap-3">
                                         <Label htmlFor="name">Nome</Label>
                                         <Input
-                                            id="name"
+                                            id="title"
+                                            name="title"
                                             type="text"
                                             className="w-full"
                                             required
@@ -92,6 +94,7 @@ export default async function ProductAdd() {
                                         <Label htmlFor="description">Descrição</Label>
                                         <Textarea
                                             id="description"
+                                            name="description"
                                             required
                                             className="min-h-60"
 
@@ -101,6 +104,7 @@ export default async function ProductAdd() {
                                         <Label htmlFor="name">Link</Label>
                                         <Input
                                             id="link"
+                                            name="link"
                                             type="url"
                                             className="w-full"
                                             required
@@ -111,6 +115,7 @@ export default async function ProductAdd() {
                                         <Label htmlFor="name">Preço Regular</Label>
                                         <Input
                                             id="price"
+                                            name="price-regular"
                                             type="number"
                                             className="w-full"
                                             required
@@ -121,6 +126,7 @@ export default async function ProductAdd() {
                                         <Label htmlFor="name">Preço com desconto</Label>
                                         <Input
                                             id="discount"
+                                            name="price-discount"
                                             type="number"
                                             className="w-full"
                                             required
@@ -140,9 +146,9 @@ export default async function ProductAdd() {
                                 {hasVendors && (
                                     <Select
                                         required
+                                        name='vendor'
                                     >
                                         <SelectTrigger
-                                            id="vendor"
                                             aria-label="Selecione a loja"
                                         >
                                             <SelectValue placeholder="Selecione a loja" />
@@ -167,11 +173,11 @@ export default async function ProductAdd() {
                             <CardContent>
                                 <div className="grid gap-3">
                                     <Input
-                                        id="image"
+                                        id="file"
+                                        name="file"
                                         type="text"
                                         className="w-full"
                                         required
-
                                     />
                                 </div>
                                 {/* <div className="flex flex-col gap-2">
