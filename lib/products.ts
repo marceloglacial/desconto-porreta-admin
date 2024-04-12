@@ -31,7 +31,7 @@ const formatProduct = (product: ApiProduct): IProduct => {
 }
 
 export const getProducts = async (): Promise<IgetProducts> => {
-    const res = await fetch(`${process.env.API_URL}/api/products`)
+    const res = await fetch(`${process.env.API_URL}/api/products`, { cache: 'no-store' })
     if (!res.ok) {
         throw new Error('Error')
     }
@@ -55,7 +55,8 @@ export const postProducts = async (postData: any) => {
         throw new Error('Error')
     }
     const apiData = await res.json()
-    console.log('Response data:', apiData);
+    console.log(apiData.message);
+    return apiData
 };
 
 export const getSingleProduct = async (id: string): Promise<IProduct | undefined> => {
