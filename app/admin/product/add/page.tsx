@@ -1,12 +1,10 @@
 import { getVendors } from '@/lib/vendors'
-import ProductAddForm from './components/form'
+import ProductForm from '../components/product-form'
 
 export default async function ProductAdd() {
-    const vendors = (await getVendors()).data
-    const formProps = {
-        vendors,
+    const vendors = await getVendors()
+    const data = {
+        vendors: vendors.data,
     }
-    return (
-        <ProductAddForm {...formProps} />
-    )
+    return <ProductForm {...data} />
 }

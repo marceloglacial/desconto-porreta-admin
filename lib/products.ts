@@ -1,10 +1,10 @@
 interface IgetProducts {
-    data: IProduct[],
+    data: IProduct[]
     meta: Object
 }
 
 const formatProduct = (product: ApiProduct): IProduct => {
-    const { _id, title, link, price, vendor_info, image } = product;
+    const { _id, title, link, price, vendor_info, image } = product
     const vendorInfo = vendor_info[0]
 
     return {
@@ -16,7 +16,7 @@ const formatProduct = (product: ApiProduct): IProduct => {
             src: image.src,
             alt: image.alt || title,
             width: image.width || 300,
-            height: image.height || 300
+            height: image.height || 300,
         },
         vendor: {
             id: vendorInfo._id,
@@ -24,13 +24,22 @@ const formatProduct = (product: ApiProduct): IProduct => {
             slug: vendorInfo.slug,
         },
         price: {
-            regular: getCurrency(price.regular),
-            discount: price.discount ? getCurrency(price.discount) : undefined,
+            regular: price.regular,
+            discount: price.discount ? price.discount : undefined,
         },
-    };
+    }
 }
 
+export function getDiscount(regularPrice: number, finalPrice: number): number {
+    const discountPercentage = ((regularPrice - finalPrice) / regularPrice) * 100
+    return Math.round(discountPercentage)
+}
+
+export const getCurrency = (value: number): string =>
+    value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+
 export const getProducts = async (): Promise<IgetProducts> => {
+    'use server'
     const res = await fetch(`${process.env.API_URL}/api/products`, { cache: 'no-store' })
     if (!res.ok) {
         throw new Error('Error')
@@ -38,10 +47,10 @@ export const getProducts = async (): Promise<IgetProducts> => {
     const apiData = await res.json()
     const result = {
         data: apiData.map((item: ApiProduct) => formatProduct(item)),
-        meta: apiData?.meta
+        meta: apiData?.meta,
     }
     return result
-};
+}
 
 export const postProducts = async (postData: any) => {
     const res = await fetch(`${process.env.API_URL}/api/products`, {
@@ -55,27 +64,17 @@ export const postProducts = async (postData: any) => {
         throw new Error('Error')
     }
     const apiData = await res.json()
-    console.log(apiData.message);
+    console.log(apiData.message)
     return apiData
-};
+}
 
 export const getSingleProduct = async (id: string): Promise<IProduct | undefined> => {
+    'use server'
     const apiData = await getProducts()
-    return (
-        apiData.data.find((product) => product.id === id) ||
-        undefined
-    );
-};
+    return apiData.data.find((product) => product.id === id) || undefined
+}
 
 export const getProductsByVendor = async (id: string) => {
     const apiData = await getProducts()
-    return apiData.data.filter((product) => product.vendor.id === id);
-};
-
-export function getDiscount(regularPrice: number, finalPrice: number): number {
-    const discountPercentage = ((regularPrice - finalPrice) / regularPrice) * 100;
-    return Math.round(discountPercentage);
+    return apiData.data.filter((product) => product.vendor.id === id)
 }
-
-export const getCurrency = (value: number): string =>
-    value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });

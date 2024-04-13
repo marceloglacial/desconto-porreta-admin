@@ -1,5 +1,5 @@
 interface IgetVendors {
-    data: IVendor[],
+    data: IVendor[]
     meta: Object
 }
 
@@ -12,9 +12,9 @@ const formatVendor = (vendor: ApiVendor): IVendor => {
             src: vendor.logo,
             alt: vendor.title,
             width: 150,
-            height: 150
+            height: 150,
         },
-    };
+    }
 }
 
 export const getVendors = async (): Promise<IgetVendors> => {
@@ -25,15 +25,12 @@ export const getVendors = async (): Promise<IgetVendors> => {
     const apiData = await res.json()
     const result = {
         data: apiData.map((item: ApiVendor) => formatVendor(item)),
-        meta: apiData?.meta
+        meta: apiData?.meta,
     }
     return result
-};
+}
 
 export const getSingleVendor = async (id: string): Promise<IVendor | undefined> => {
     const apiData = await getVendors()
-    return (
-        apiData.data.find((vendor) => vendor.id === id) ||
-        undefined
-    );
-};
+    return apiData.data.find((vendor) => vendor.id === id) || undefined
+}

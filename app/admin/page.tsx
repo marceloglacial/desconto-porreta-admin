@@ -1,38 +1,23 @@
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import {
-    Table,
-    TableBody,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { getProducts } from '@/lib/products'
 import TableProductItem from '@/components/table-product-item'
-import { Button } from '@/components/ui/button';
-import { PlusCircle } from 'lucide-react';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button'
+import { PlusCircle } from 'lucide-react'
+import Link from 'next/link'
 
 export default async function Dashboard() {
-
-    const products = await getProducts();
+    const products = await getProducts()
     const allProducts = products.data
 
     return (
         <>
-            <div className="flex items-center">
-                <div className="flex items-center gap-2">
-                    <Button size="sm" className="h-8 gap-1" asChild>
+            <div className='flex items-center'>
+                <div className='flex items-center gap-2'>
+                    <Button size='sm' className='h-8 gap-1' asChild>
                         <Link href={`/admin/product/add/`}>
-                            <PlusCircle className="h-3.5 w-3.5" />
-                            <span className="sm:whitespace-nowrap">
-                                Adicionar Novo Produto
-                            </span>
+                            <PlusCircle className='h-3.5 w-3.5' />
+                            <span className='sm:whitespace-nowrap'>Adicionar Novo Produto</span>
                         </Link>
                     </Button>
                 </div>
@@ -45,27 +30,25 @@ export default async function Dashboard() {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="w-[100px]">
-                                    Imagem
-                                </TableHead>
+                                <TableHead className='w-[100px]'>Imagem</TableHead>
                                 <TableHead>Nome</TableHead>
-                                <TableHead className="hidden md:table-cell">
-                                    Preço
-                                </TableHead>
+                                <TableHead className='hidden md:table-cell'>Preço</TableHead>
                                 <TableHead>
-                                    <span className="sr-only">Actions</span>
+                                    <span className='sr-only'>Actions</span>
                                 </TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {allProducts.map(product => <TableProductItem key={product.id} {...product} />)}
+                            {allProducts.map((product) => (
+                                <TableProductItem key={product.id} {...product} />
+                            ))}
                         </TableBody>
                     </Table>
                 </CardContent>
                 <CardFooter>
-                    <div className="text-xs text-muted-foreground">
-                        Showing <strong>{allProducts.length}</strong> of <strong>{allProducts.length}</strong>{" "}
-                        products
+                    <div className='text-xs text-muted-foreground'>
+                        Showing <strong>{allProducts.length}</strong> of{' '}
+                        <strong>{allProducts.length}</strong> products
                     </div>
                 </CardFooter>
             </Card>

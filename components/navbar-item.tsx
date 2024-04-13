@@ -19,18 +19,14 @@ const NavBarItem: FC<NavbarItem> = ({ link, title, icon, active }): JSX.Element 
             <div className='navbar-item__desktop'>
                 <Tooltip>
                     <TooltipTrigger asChild>
-                        <Link
-                            href={link}
-                            className={`${stylesMobile} ${stylesDesktop}`}
-                        >
+                        <Link href={link} className={`${stylesMobile} ${stylesDesktop}`}>
                             {icon}
-                            <span className="md:sr-only">{title}</span>
+                            <span className='md:sr-only'>{title}</span>
                         </Link>
                     </TooltipTrigger>
-                    <TooltipContent side="right">{title}</TooltipContent>
+                    <TooltipContent side='right'>{title}</TooltipContent>
                 </Tooltip>
             </div>
-
         </div>
     )
 }

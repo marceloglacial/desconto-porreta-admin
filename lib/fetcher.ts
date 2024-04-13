@@ -1,1 +1,1 @@
-export const fetcher = (...args: any[]): Promise<any> => fetch(...args).then(res => res.json());
+export const fetcher = (...args: any[]): Promise<any> => fetch(...args).then((res) => res.json())
