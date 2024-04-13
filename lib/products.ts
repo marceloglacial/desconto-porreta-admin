@@ -68,6 +68,22 @@ export const postProducts = async (postData: any) => {
     return apiData
 }
 
+export const updateProduct = async (formData: any) => {
+    // const res = await fetch(`${process.env.API_URL}/api/products`, {
+    //     method: 'UPDATE',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(formData),
+    // })
+    // if (!res.ok) {
+    //     throw new Error('Error')
+    // }
+    // const apiData = await res.json()
+    console.log(formData.message)
+    return formData
+}
+
 export const getSingleProduct = async (id: string): Promise<IProduct | undefined> => {
     'use server'
     const apiData = await getProducts()

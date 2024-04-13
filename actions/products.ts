@@ -23,8 +23,8 @@ export async function addProduct(formData: any) {
     redirect(`/admin/product/${reponse.id}`)
 }
 
-export async function updateProduct() {
-    console.log('update product')
+export async function updateProduct(formData: any) {
+    console.log(formData)
 
     return null
 }

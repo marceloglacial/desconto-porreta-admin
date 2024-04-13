@@ -43,7 +43,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors }): JSX.Element =>
                         <Button variant='outline' size='sm' asChild>
                             <Link href={'/admin/'}>Cancelar</Link>
                         </Button>
-                        <FormAddButton isEditing />
+                        <FormAddButton isEditing={!!product} />
                     </div>
                 </div>
                 <div className='grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8'>
@@ -53,6 +53,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors }): JSX.Element =>
                                 <CardTitle>Detalhes do Produto</CardTitle>
                             </CardHeader>
                             <CardContent>
+                                {product && <Input type='hidden' name='id' value={product?.id} />}
                                 <div className='grid gap-6'>
                                     <div className='grid gap-3'>
                                         <Label htmlFor='name'>Nome</Label>
@@ -148,12 +149,13 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors }): JSX.Element =>
                                 <CardTitle>Imagem do Produto</CardTitle>
                             </CardHeader>
                             <CardContent>
+                                <Input type='hidden' name='file' value={product?.image.src} />
                                 <div className='grid gap-3'>
                                     <div className='flex items-center justify-center'><img {...product?.image} /></div>
                                     <div className="flex flex-col items-center justify-center gap-2">
                                         <button className="flex gap-3 items-center justify-center rounded-md border border-dashed bg-white shadow-md py-1 w-full">
                                             <Upload className="h-8 w-4 text-muted-foreground" />
-                                            <span>Alterar Imagem</span>
+                                            <span>{product ? 'Alterar' : 'Adicionar'} Imagem</span>
                                         </button>
                                     </div>
                                 </div>
