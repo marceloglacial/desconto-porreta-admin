@@ -1,7 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { getProducts } from '@/lib/products'
-import TableProductItem from '@/components/table-product-item'
+import TableProductItem from '@/app/admin/product/components/table-product-item'
 import { Button } from '@/components/ui/button'
 import { PlusCircle } from 'lucide-react'
 import Link from 'next/link'
@@ -32,7 +32,6 @@ export default async function Dashboard() {
                             <TableRow>
                                 <TableHead className='w-[100px]'>Imagem</TableHead>
                                 <TableHead>Nome</TableHead>
-                                <TableHead className='hidden md:table-cell'>Preço</TableHead>
                                 <TableHead>
                                     <span className='sr-only'>Actions</span>
                                 </TableHead>

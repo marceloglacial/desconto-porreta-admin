@@ -33,7 +33,6 @@ const TableProductItem: FC<IProduct> = ({ id, title, image, price }): JSX.Elemen
                     <span className='line-clamp-3'>{title}</span>
                 </Link>
             </TableCell>
-            <TableCell className='hidden md:table-cell'>{price.regular}</TableCell>
             <TableCell>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

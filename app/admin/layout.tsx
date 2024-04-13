@@ -58,12 +58,6 @@ export default function RootLayout({
                                         </BreadcrumbItem>
                                         <BreadcrumbSeparator />
                                         <BreadcrumbItem>
-                                            <BreadcrumbLink asChild>
-                                                <Link href='#'>Produtos</Link>
-                                            </BreadcrumbLink>
-                                        </BreadcrumbItem>
-                                        <BreadcrumbSeparator />
-                                        <BreadcrumbItem>
                                             <BreadcrumbPage>Todos os produtos</BreadcrumbPage>
                                         </BreadcrumbItem>
                                     </BreadcrumbList>

@@ -12,7 +12,7 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, Upload } from 'lucide-react'
 import FormAddButton from './add-button'
 import Link from 'next/link'
 import { FC } from 'react'
@@ -37,13 +37,13 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors }): JSX.Element =>
                         </Link>
                     </Button>
                     <h1 className='flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0'>
-                        Adicionar Produto
+                        {product ? 'Editar' : 'Adicionar'} produto
                     </h1>
                     <div className='hidden items-center gap-2 md:ml-auto md:flex'>
                         <Button variant='outline' size='sm' asChild>
                             <Link href={'/admin/'}>Cancelar</Link>
                         </Button>
-                        <FormAddButton />
+                        <FormAddButton isEditing />
                     </div>
                 </div>
                 <div className='grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8'>
@@ -126,8 +126,8 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors }): JSX.Element =>
                                     </span>
                                 )}
                                 {hasVendors && (
-                                    <Select required name='vendor'>
-                                        <SelectTrigger aria-label='Selecione a loja'>
+                                    <Select required name='vendor' value={product?.vendor.id}>
+                                        <SelectTrigger aria-label='Selecione a loja' >
                                             <SelectValue placeholder='Selecione a loja' />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -149,20 +149,14 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors }): JSX.Element =>
                             </CardHeader>
                             <CardContent>
                                 <div className='grid gap-3'>
-                                    <Input
-                                        id='file'
-                                        name='file'
-                                        type='text'
-                                        className='w-full'
-                                        required
-                                    />
+                                    <div className='flex items-center justify-center'><img {...product?.image} /></div>
+                                    <div className="flex flex-col items-center justify-center gap-2">
+                                        <button className="flex gap-3 items-center justify-center rounded-md border border-dashed bg-white shadow-md py-1 w-full">
+                                            <Upload className="h-8 w-4 text-muted-foreground" />
+                                            <span>Alterar Imagem</span>
+                                        </button>
+                                    </div>
                                 </div>
-                                {/* <div className="flex flex-col gap-2">
-                                    <button className="flex gap-3 w-full items-center justify-center rounded-md border border-dashed">
-                                        <Upload className="h-8 w-4 text-muted-foreground" />
-                                        <span>Alterar Imagem</span>
-                                    </button>
-                                </div> */}
                             </CardContent>
                         </Card>
                     </div>

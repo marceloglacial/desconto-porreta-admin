@@ -1,12 +1,24 @@
 import { Button } from '@/components/ui/button'
+import { FC } from 'react'
 import { useFormStatus } from 'react-dom'
 
-export default function FormAddButton() {
+interface FormAddButtonProps {
+    isEditing?: boolean
+}
+
+const FormAddButton: FC<FormAddButtonProps> = ({ isEditing }): JSX.Element => {
     const { pending } = useFormStatus()
+
+    const message = {
+        edditing: pending ? 'Adicionando ...' : 'Adicionar Produto',
+        adding: pending ? 'Salvando ...' : 'Salvar Produto'
+    }
 
     return (
         <Button type='submit' size='sm' disabled={pending}>
-            {pending ? 'Adicionando ...' : 'Adicionar Produto'}
+            {isEditing ? message.edditing : message.adding}
         </Button>
     )
 }
+
+export default FormAddButton
