@@ -22,6 +22,8 @@ import {
 } from '@/components/ui/dropdown-menu'
 import Link from 'next/link'
 import NavBar from '@/components/navbar'
+import { Toaster } from "@/components/ui/toaster"
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -97,6 +99,7 @@ export default function RootLayout({
                             </main>
                         </div>
                     </div>
+                    <Toaster />
                 </body>
             </TooltipProvider>
         </html>

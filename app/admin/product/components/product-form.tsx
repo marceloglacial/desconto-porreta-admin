@@ -149,16 +149,17 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors }): JSX.Element =>
                                 <CardTitle>Imagem do Produto</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <Input type='hidden' name='file' value={product?.image.src} />
-                                <div className='grid gap-3'>
-                                    <div className='flex items-center justify-center'><img {...product?.image} /></div>
-                                    <div className="flex flex-col items-center justify-center gap-2">
-                                        <button className="flex gap-3 items-center justify-center rounded-md border border-dashed bg-white shadow-md py-1 w-full">
-                                            <Upload className="h-8 w-4 text-muted-foreground" />
-                                            <span>{product ? 'Alterar' : 'Adicionar'} Imagem</span>
-                                        </button>
-                                    </div>
-                                </div>
+                                {product ? <Input type='text' name='file' defaultValue={product?.image.src} /> :
+                                    <div className='grid gap-3'>
+                                        <Input type='hidden' name='file' value={product?.image.src} />
+                                        <div className='flex items-center justify-center'><img {...product?.image} /></div>
+                                        <div className="flex flex-col items-center justify-center gap-2">
+                                            <button className="flex gap-3 items-center justify-center rounded-md border border-dashed bg-white shadow-md py-1 w-full">
+                                                <Upload className="h-8 w-4 text-muted-foreground" />
+                                                <span>{product ? 'Alterar' : 'Adicionar'} Imagem</span>
+                                            </button>
+                                        </div>
+                                    </div>}
                             </CardContent>
                         </Card>
                     </div>

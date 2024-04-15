@@ -4,14 +4,14 @@ interface IgetProducts {
 }
 
 const formatProduct = (product: ApiProduct): IProduct => {
-    const { _id, title, link, price, vendor_info, image } = product
+    const { _id, title, description, link, price, vendor_info, image } = product
     const vendorInfo = vendor_info[0]
 
     return {
         id: _id,
         title,
         link,
-        description: title,
+        description: description,
         image: {
             src: image.src,
             alt: image.alt || title,
@@ -64,24 +64,22 @@ export const postProducts = async (postData: any) => {
         throw new Error('Error')
     }
     const apiData = await res.json()
-    console.log(apiData.message)
     return apiData
 }
 
-export const updateProduct = async (formData: any) => {
-    // const res = await fetch(`${process.env.API_URL}/api/products`, {
-    //     method: 'UPDATE',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(formData),
-    // })
-    // if (!res.ok) {
-    //     throw new Error('Error')
-    // }
-    // const apiData = await res.json()
-    console.log(formData.message)
-    return formData
+export const putProducts = async (formData: any) => {
+    const res = await fetch(`${process.env.API_URL}/api/products`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    })
+    if (!res.ok) {
+        throw new Error('Error')
+    }
+    const apiData = await res.json()
+    return apiData.data
 }
 
 export const getSingleProduct = async (id: string): Promise<IProduct | undefined> => {

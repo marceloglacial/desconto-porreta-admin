@@ -1,13 +1,25 @@
 import { Button } from '@/components/ui/button'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useFormStatus } from 'react-dom'
+import { useToast } from "@/components/ui/use-toast"
 
 interface FormAddButtonProps {
     isEditing?: boolean
 }
 
 const FormAddButton: FC<FormAddButtonProps> = ({ isEditing }): JSX.Element => {
-    const { pending } = useFormStatus()
+    const { pending, data } = useFormStatus()
+    const { toast } = useToast()
+
+    const triggerToast = () => {
+        toast({
+            description: "Produto salvo com sucesso!",
+        })
+    }
+
+    useEffect(() => {
+        if (data) triggerToast()
+    }, [data])
 
     const message = {
         adding: pending ? 'Adicionando ...' : 'Adicionar Produto',
