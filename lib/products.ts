@@ -42,7 +42,7 @@ export const getProducts = async (): Promise<IgetProducts> => {
     'use server'
     const res = await fetch(`${process.env.API_URL}/api/products`, { cache: 'no-store' })
     if (!res.ok) {
-        throw new Error('Error')
+        throw new Error('Error while getting product list. Please check you API connection.')
     }
     const apiData = await res.json()
     const result = {
@@ -80,6 +80,22 @@ export const putProducts = async (formData: any) => {
     }
     const apiData = await res.json()
     return apiData.data
+}
+
+export const deleteProduct = async (formData: any) => {
+    const res = await fetch(`${process.env.API_URL}/api/products}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    });
+
+    if (!res.ok) {
+        throw new Error('Error deleting product');
+    }
+    const apiData = await res.json();
+    return apiData;
 }
 
 export const getSingleProduct = async (id: string): Promise<IProduct | undefined> => {

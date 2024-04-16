@@ -1,5 +1,5 @@
 'use server'
-import { postProducts, putProducts } from '@/lib/products'
+import { deleteProduct, postProducts, putProducts } from '@/lib/products'
 import { revalidatePath } from 'next/cache'
 
 export async function formatEntry(obj: any) {
@@ -62,6 +62,29 @@ export async function updateProduct(prevState: any, formData: any) {
             message: 'Erro ao salvar as informações.',
             status: 'error',
             prevState
+        }
+    }
+}
+
+export async function removeProduct(prevState: any, formData: any) {
+    'use server'
+    try {
+        const product = Object.fromEntries(formData)
+
+        await formatEntry(product)
+        await deleteProduct(product)
+        revalidatePath('/admin')
+        return {
+            message: 'Produto apagado com sucesso.',
+            status: 'success',
+            action: 'delete',
+        }
+    } catch (e) {
+        console.error(e);
+
+        return {
+            message: 'Erro ao apagar o produto.',
+            status: 'error',
         }
     }
 }
