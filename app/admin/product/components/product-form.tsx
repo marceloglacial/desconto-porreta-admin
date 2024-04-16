@@ -15,19 +15,44 @@ import { Textarea } from '@/components/ui/textarea'
 import { ChevronLeft, Upload } from 'lucide-react'
 import FormAddButton from './add-button'
 import Link from 'next/link'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
+import { useFormState } from 'react-dom'
+import { useToast } from '@/components/ui/use-toast'
+import { redirect } from 'next/navigation'
 
 interface ProductFormProps {
     product?: IProduct
     vendors: IVendor[]
 }
 
+const initialState = {
+    message: "",
+    status: '',
+    action: '',
+    product: {}
+};
+
 const ProductForm: FC<ProductFormProps> = ({ product, vendors }): JSX.Element => {
     const hasVendors = vendors.length > 0
+    const { toast } = useToast()
     const formActions = product ? updateProduct : addProduct
+    const [state, formAction] = useFormState(formActions, initialState);
+
+    const stateActions = (state: any) => {
+        if (!state?.message) return
+        toast({
+            title: state?.message,
+            variant: state?.status === 'error' ? 'destructive' : 'default'
+        })
+        if (state?.action === 'add') redirect(`/admin/product/${state.product?.id}`)
+    }
+
+    useEffect(() => {
+        stateActions(state)
+    }, [state])
 
     return (
-        <form action={formActions}>
+        <form action={formAction}>
             <div className='mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4'>
                 <div className='flex items-center gap-4'>
                     <Button variant='outline' size='icon' className='h-7 w-7' asChild>
@@ -128,7 +153,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors }): JSX.Element =>
                                 )}
                                 {hasVendors && (
                                     <Select required name='vendor' value={product?.vendor.id}>
-                                        <SelectTrigger aria-label='Selecione a loja' >
+                                        <SelectTrigger aria-label='Selecione a loja'>
                                             <SelectValue placeholder='Selecione a loja' />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -149,17 +174,25 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors }): JSX.Element =>
                                 <CardTitle>Imagem do Produto</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                {product ? <Input type='text' name='file' defaultValue={product?.image.src} /> :
-                                    <div className='grid gap-3'>
-                                        <Input type='hidden' name='file' value={product?.image.src} />
-                                        <div className='flex items-center justify-center'><img {...product?.image} /></div>
-                                        <div className="flex flex-col items-center justify-center gap-2">
-                                            <button className="flex gap-3 items-center justify-center rounded-md border border-dashed bg-white shadow-md py-1 w-full">
-                                                <Upload className="h-8 w-4 text-muted-foreground" />
-                                                <span>{product ? 'Alterar' : 'Adicionar'} Imagem</span>
+                                <Input
+                                    type='text'
+                                    name='file'
+                                    defaultValue={product?.image.src}
+                                    required
+                                />
+                                {/* <div className='grid gap-3'>
+                                        <div className='flex items-center justify-center'>
+                                            <img {...product?.image} />
+                                        </div>
+                                        <div className='flex flex-col items-center justify-center gap-2'>
+                                            <button className='flex gap-3 items-center justify-center rounded-md border border-dashed bg-white shadow-md py-1 w-full'>
+                                                <Upload className='h-8 w-4 text-muted-foreground' />
+                                                <span>
+                                                    {product ? 'Alterar' : 'Adicionar'} Imagem
+                                                </span>
                                             </button>
                                         </div>
-                                    </div>}
+                                    </div> */}
                             </CardContent>
                         </Card>
                     </div>

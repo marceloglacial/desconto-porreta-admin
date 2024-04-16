@@ -4,6 +4,7 @@ import { getVendors } from '@/lib/vendors'
 
 export default async function ProductDetail({ params }: { params: { id: string } }) {
     const product = await getSingleProduct(params.id)
+
     if (!product) return <div>Produto não encontrado!</div>
 
     const vendors = await getVendors()

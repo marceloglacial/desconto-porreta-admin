@@ -55,12 +55,8 @@ export default function RootLayout({
                                     <BreadcrumbList>
                                         <BreadcrumbItem>
                                             <BreadcrumbLink asChild>
-                                                <Link href='/admin'>Dashboard</Link>
+                                                <Link href='/admin'>Desconto Porreta</Link>
                                             </BreadcrumbLink>
-                                        </BreadcrumbItem>
-                                        <BreadcrumbSeparator />
-                                        <BreadcrumbItem>
-                                            <BreadcrumbPage>Todos os produtos</BreadcrumbPage>
                                         </BreadcrumbItem>
                                     </BreadcrumbList>
                                 </Breadcrumb>
