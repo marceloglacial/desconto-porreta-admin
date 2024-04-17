@@ -184,7 +184,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
                                         defaultValue={product?.image.src}
                                         required
                                     />
-                                    {/* <div className='grid gap-3'>
+                                    <div className='grid gap-3'>
                                         <div className='flex items-center justify-center'>
                                             <img {...product?.image} />
                                         </div>
@@ -196,7 +196,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
                                                 </span>
                                             </button>
                                         </div>
-                                    </div> */}
+                                    </div>
                                 </CardContent>
                             </Card>
                         </div>

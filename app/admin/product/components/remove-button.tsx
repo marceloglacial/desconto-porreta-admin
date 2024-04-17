@@ -31,7 +31,10 @@ const RemoveButton: FC = ({ id }): JSX.Element => {
     return (
         <form action={formAction}>
             <Input type='hidden' value={id} id='id' name='id' />
-            <Button size='sm' variant='destructive' type='submit'>
+            <Button size='sm' variant='destructive' type='submit' onClick={(e) => {
+                const confirmation = confirm('Tem certeza que quer apagar esse produto?')
+                if (!confirmation) e.preventDefault()
+            }}>
                 Apagar produto
             </Button>
         </form>
