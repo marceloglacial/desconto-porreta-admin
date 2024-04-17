@@ -26,7 +26,7 @@ export async function addProduct(prevState: any, formData: any) {
         await formatEntry(product)
         const response = await postProducts(product)
         revalidatePath('/admin')
-        console.info('Produto adicionado com sucesso.');
+        console.info('Produto adicionado com sucesso.')
         return {
             message: 'Produto adicionado com sucesso.',
             product: { ...product, id: response.id },
@@ -51,7 +51,7 @@ export async function updateProduct(prevState: any, formData: any) {
         await putProducts(product)
         revalidatePath('/admin')
         revalidatePath(`/admin/product/${product.id}`)
-        console.info('Produto atualizado com sucesso.');
+        console.info('Produto atualizado com sucesso.')
         return {
             message: 'Produto atualizado com sucesso.',
             status: 'success',
@@ -77,7 +77,7 @@ export async function removeProduct(prevState: any, formData: any) {
         await formatEntry(product)
         await deleteProduct(product)
         revalidatePath('/admin')
-        console.info('Produto apagado com sucesso.');
+        console.info('Produto apagado com sucesso.')
 
         return {
             message: 'Produto apagado com sucesso.',

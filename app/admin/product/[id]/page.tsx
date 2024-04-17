@@ -8,7 +8,7 @@ export default async function ProductDetail({ params }: { params: { id: string }
     const data = {
         product,
         vendors: vendors.data,
-        isEditing: true
+        isEditing: true,
     }
 
     return <ProductForm {...data} />

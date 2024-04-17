@@ -17,13 +17,14 @@ import FormAddButton from './add-button'
 import Link from 'next/link'
 import { FC, useEffect } from 'react'
 import { useFormState } from 'react-dom'
-import { toast } from "sonner"
+import { toast } from 'sonner'
 import { redirect } from 'next/navigation'
 import RemoveButton from './remove-button'
 
 interface ProductFormProps {
     product?: IProduct
     vendors: IVendor[]
+    isEditing: boolean
 }
 
 const initialState = {
@@ -220,17 +221,19 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
                     </div>
                 </div>
             </form>
-            {isEditing && <div className=''>
-                <Card className='overflow-hidden w-full' x-chunk='dashboard-07-chunk-4'>
-                    <CardHeader>
-                        <CardTitle>Apagar Produto</CardTitle>
-                        <CardDescription>Essa ação é irreversível.</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <RemoveButton id={product?.id} />
-                    </CardContent>
-                </Card>
-            </div>}
+            {isEditing && (
+                <div className=''>
+                    <Card className='overflow-hidden w-full' x-chunk='dashboard-07-chunk-4'>
+                        <CardHeader>
+                            <CardTitle>Apagar Produto</CardTitle>
+                            <CardDescription>Essa ação é irreversível.</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <RemoveButton id={product?.id} />
+                        </CardContent>
+                    </Card>
+                </div>
+            )}
         </>
     )
 }

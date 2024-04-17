@@ -14,7 +14,11 @@ const initialState = {
     product: {},
 }
 
-const RemoveButton: FC = ({ id }): JSX.Element => {
+interface RemoveButtonProps {
+    id?: string
+}
+
+const RemoveButton: FC<RemoveButtonProps> = ({ id }): JSX.Element => {
     const [state, formAction] = useFormState(removeProduct, initialState)
 
     const stateActions = (state: any) => {
@@ -31,10 +35,15 @@ const RemoveButton: FC = ({ id }): JSX.Element => {
     return (
         <form action={formAction}>
             <Input type='hidden' value={id} id='id' name='id' />
-            <Button size='sm' variant='destructive' type='submit' onClick={(e) => {
-                const confirmation = confirm('Tem certeza que quer apagar esse produto?')
-                if (!confirmation) e.preventDefault()
-            }}>
+            <Button
+                size='sm'
+                variant='destructive'
+                type='submit'
+                onClick={(e) => {
+                    const confirmation = confirm('Tem certeza que quer apagar esse produto?')
+                    if (!confirmation) e.preventDefault()
+                }}
+            >
                 Apagar produto
             </Button>
         </form>

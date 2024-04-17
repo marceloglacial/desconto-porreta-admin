@@ -5,7 +5,7 @@ export default async function ProductAdd() {
     const vendors = await getVendors()
     const data = {
         vendors: vendors.data,
-        isEditing: false
+        isEditing: false,
     }
     return <ProductForm {...data} />
 }
