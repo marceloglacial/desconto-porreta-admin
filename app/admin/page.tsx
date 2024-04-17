@@ -32,9 +32,6 @@ export default async function Dashboard() {
                             <TableRow>
                                 <TableHead className='w-[100px]'>Imagem</TableHead>
                                 <TableHead>Nome</TableHead>
-                                <TableHead>
-                                    <span className='sr-only'>Actions</span>
-                                </TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>

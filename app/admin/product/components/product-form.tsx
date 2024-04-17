@@ -17,7 +17,7 @@ import FormAddButton from './add-button'
 import Link from 'next/link'
 import { FC, useEffect } from 'react'
 import { useFormState } from 'react-dom'
-import { useToast } from '@/components/ui/use-toast'
+import { toast } from "sonner"
 import { redirect } from 'next/navigation'
 import RemoveButton from './remove-button'
 
@@ -33,20 +33,20 @@ const initialState = {
     product: {},
 }
 
-const ProductForm: FC<ProductFormProps> = ({ product, vendors }): JSX.Element => {
+const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX.Element => {
     const hasVendors = vendors.length > 0
-    const { toast } = useToast()
     const formActions = product ? updateProduct : addProduct
     const [state, formAction] = useFormState(formActions, initialState)
 
     const stateActions = (state: any) => {
-        if (!state?.message) return
-        toast({
-            title: state?.message,
-            variant: state?.status === 'error' ? 'destructive' : 'default',
-        })
-        if (state?.action === 'add') redirect(`/admin/product/${state.product?.id}`)
-        if (state?.action === 'delete') redirect(`/admin/`)
+        if (state?.action === 'update') {
+            toast.success('Produto atualizado com sucesso')
+            redirect(`/admin/product/${state.product?.id}`)
+        }
+        if (state?.action === 'add') {
+            toast.success('Produto adicionado com sucesso')
+            redirect(`/admin/product/${state.product?.id}`)
+        }
     }
     useEffect(() => {
         if (state?.action) stateActions(state)
@@ -220,19 +220,17 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors }): JSX.Element =>
                     </div>
                 </div>
             </form>
-            {product && (
-                <div className=''>
-                    <Card className='overflow-hidden w-full' x-chunk='dashboard-07-chunk-4'>
-                        <CardHeader>
-                            <CardTitle>Apagar Produto</CardTitle>
-                            <CardDescription>Essa ação é irreversível.</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <RemoveButton id={product.id} />
-                        </CardContent>
-                    </Card>
-                </div>
-            )}
+            {isEditing && <div className=''>
+                <Card className='overflow-hidden w-full' x-chunk='dashboard-07-chunk-4'>
+                    <CardHeader>
+                        <CardTitle>Apagar Produto</CardTitle>
+                        <CardDescription>Essa ação é irreversível.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <RemoveButton id={product?.id} />
+                    </CardContent>
+                </Card>
+            </div>}
         </>
     )
 }

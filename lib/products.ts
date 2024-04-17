@@ -83,19 +83,19 @@ export const putProducts = async (formData: any) => {
 }
 
 export const deleteProduct = async (formData: any) => {
-    const res = await fetch(`${process.env.API_URL}/api/products}`, {
+    const res = await fetch(`${process.env.API_URL}/api/products`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-    });
+    })
 
     if (!res.ok) {
-        throw new Error('Error deleting product');
+        throw new Error('Error deleting product')
     }
-    const apiData = await res.json();
-    return apiData;
+    const apiData = await res.json()
+    return apiData
 }
 
 export const getSingleProduct = async (id: string): Promise<IProduct | undefined> => {

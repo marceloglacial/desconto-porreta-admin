@@ -22,8 +22,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import Link from 'next/link'
 import NavBar from '@/components/navbar'
-import { Toaster } from "@/components/ui/toaster"
-
+import { Toaster } from '@/components/ui/sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -55,7 +54,9 @@ export default function RootLayout({
                                     <BreadcrumbList>
                                         <BreadcrumbItem>
                                             <BreadcrumbLink asChild>
-                                                <Link href='/admin'>Desconto Porreta</Link>
+                                                <Link href='/admin' className='font-bold'>
+                                                    Desconto Porreta
+                                                </Link>
                                             </BreadcrumbLink>
                                         </BreadcrumbItem>
                                     </BreadcrumbList>
@@ -95,7 +96,7 @@ export default function RootLayout({
                             </main>
                         </div>
                     </div>
-                    <Toaster />
+                    <Toaster position='top-center' richColors closeButton />
                 </body>
             </TooltipProvider>
         </html>
