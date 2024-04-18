@@ -4,11 +4,13 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { redirect } from 'next/navigation'
+import LoadingState from '@/components/loading-state';
+import ErrorState from '@/components/error-state';
 
 export default function Login() {
     const { user, error, isLoading } = useUser();
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>{error.message}</div>;
+    if (isLoading) return <LoadingState />;
+    if (error) return <ErrorState title='Erro ao carregar suas credenciais' message={'Error message'} />;
     if (user) return redirect('/admin')
     return (
         <div className='w-screen h-screen flex items-center justify-center'>

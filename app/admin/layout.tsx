@@ -25,6 +25,8 @@ import { Toaster } from '@/components/ui/sonner'
 import { UserProvider, useUser } from '@auth0/nextjs-auth0/client';
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
+import LoadingState from '@/components/loading-state'
+import ErrorState from '@/components/error-state'
 
 export default function RootLayout({
     children,
@@ -33,8 +35,8 @@ export default function RootLayout({
 }>) {
     const { user, error, isLoading } = useUser();
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>{error.message}</div>;
+    if (isLoading) return <LoadingState />;
+    if (error) return <ErrorState title='Erro ao carregar suas credenciais' message={'Error message'} />;
     if (!user) return redirect('/')
 
     return (
