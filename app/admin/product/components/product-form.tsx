@@ -20,6 +20,7 @@ import { useFormState } from 'react-dom'
 import { toast } from 'sonner'
 import { redirect } from 'next/navigation'
 import RemoveButton from './remove-button'
+import UploadImage from './upload-image'
 
 interface ProductFormProps {
     product?: IProduct
@@ -174,32 +175,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
                             </Card>
                         </div>
                         <div className='grid auto-rows-max items-start gap-4 lg:gap-8'>
-                            <Card className='overflow-hidden' x-chunk='dashboard-07-chunk-4'>
-                                <CardHeader>
-                                    <CardTitle>Imagem do Produto</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <Input
-                                        type='text'
-                                        name='file'
-                                        defaultValue={product?.image.src}
-                                        required
-                                    />
-                                    <div className='grid gap-3'>
-                                        <div className='flex items-center justify-center'>
-                                            <img {...product?.image} />
-                                        </div>
-                                        <div className='flex flex-col items-center justify-center gap-2'>
-                                            <button className='flex gap-3 items-center justify-center rounded-md border border-dashed bg-white shadow-md py-1 w-full'>
-                                                <Upload className='h-8 w-4 text-muted-foreground' />
-                                                <span>
-                                                    {product ? 'Alterar' : 'Adicionar'} Imagem
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
+                            <UploadImage product={product} />
                         </div>
                     </div>
                     <div className='flex items-center justify-center gap-2 md:hidden'>
