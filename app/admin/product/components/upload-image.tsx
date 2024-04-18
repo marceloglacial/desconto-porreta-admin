@@ -21,7 +21,7 @@ function UploadImage({ product }: { product: any }) {
         widget.close()
     }
 
-    const updatedImage = info ? info : product?.image
+    const updatedImage: ImageProps = info ? info : product?.image
 
     return (
         <Card className='overflow-hidden' x-chunk='dashboard-07-chunk-4'>
@@ -37,7 +37,7 @@ function UploadImage({ product }: { product: any }) {
                 />
                 <div className='grid gap-3'>
                     {updatedImage && <div className='flex items-center justify-center'>
-                        <Image alt={updatedImage?.alt} {...updatedImage} />
+                        <Image alt={updatedImage?.alt} src={updatedImage.src} width={updatedImage.width} height={updatedImage.height} className=' object-cover' />
                     </div>}
                     <div className='flex flex-col items-center justify-center gap-2'>
                         <CldUploadButton className='flex gap-3 items-center justify-center rounded-md border border-dashed bg-white shadow-md py-1 w-full'
