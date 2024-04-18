@@ -38,20 +38,18 @@ const initialState = {
 const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX.Element => {
     const hasVendors = vendors.length > 0
     const formActions = product ? updateProduct : addProduct
+
     const [state, formAction] = useFormState(formActions, initialState)
 
     const stateActions = (state: any) => {
-        if (state?.action === 'update') {
-            toast.success('Produto atualizado com sucesso')
-            redirect(`/admin/product/${state.product?.id}`)
+        if (state.status === 'error') {
+            return toast.error(state.message)
         }
-        if (state?.action === 'add') {
-            toast.success('Produto adicionado com sucesso')
-            redirect(`/admin/product/${state.product?.id}`)
-        }
+        toast.success(state.message)
+        redirect(`/admin/product/${state.product?.id}`)
     }
     useEffect(() => {
-        if (state?.action) stateActions(state)
+        if (state?.status) stateActions(state)
     }, [state])
 
     return (

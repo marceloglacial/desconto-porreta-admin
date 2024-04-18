@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { CldUploadButton } from 'next-cloudinary';
 import Image, { ImageProps } from 'next/image';
 
-
 function UploadImage({ product }: { product: any }) {
     const [info, updateInfo] = useState<ImageProps>();
 

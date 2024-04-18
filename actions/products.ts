@@ -24,7 +24,14 @@ export async function addProduct(prevState: any, formData: any) {
     try {
         const product = Object.fromEntries(formData)
         await formatEntry(product)
-        const response = await postProducts(product)
+        const response = product.image.src && await postProducts(product)
+        if (!response) {
+            return {
+                message: 'Favor adicionar a imagem do produto.',
+                status: 'error',
+                prevState,
+            }
+        }
         revalidatePath('/admin')
         console.info('Produto adicionado com sucesso.')
         return {
