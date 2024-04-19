@@ -1,10 +1,11 @@
 // TODO: https://github.com/marceloglacial/desconto-porreta-admin/issues/15 
 
-type PageType = {
+export type PageType = {
     slug: string,
     title: string,
+    data?: Object[]
 }
-export const pageData: PageType[] = [
+const pageData: PageType[] = [
     {
         slug: 'products',
         title: 'Produtos'
@@ -15,7 +16,8 @@ export const pageData: PageType[] = [
     }
 ]
 
-interface IgetPages {
+
+export interface IgetPages {
     data: PageType[],
     meta: Object
 }

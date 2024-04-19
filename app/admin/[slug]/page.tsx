@@ -9,10 +9,15 @@ export default async function ItemsPage({ params }: { params: { slug: string } }
 
     const { title, slug } = pageData
 
+    // TODO Move it to API
+    const getData = (slug: string) => {
+        return []
+    }
+
     return (
         <>
             <AddItemButton slug={slug} />
-            <PagePanel title={title} data={[]} />
+            <PagePanel title={title} data={getData(slug)} slug={slug} />
         </>
     )
 }
