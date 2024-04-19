@@ -6,13 +6,14 @@ interface IgetVendors {
 const formatVendor = (vendor: ApiVendor): IVendor => {
     return {
         id: vendor._id,
-        name: vendor.title,
+        title: vendor.title,
         slug: vendor.slug,
-        logo: {
-            src: vendor.logo,
-            alt: vendor.title,
-            width: 150,
-            height: 150,
+        logo: vendor.logo,
+        image: {
+            src: vendor.image.src,
+            alt: vendor.image.alt,
+            width: vendor.image.width,
+            height: vendor.image.height,
         },
     }
 }
