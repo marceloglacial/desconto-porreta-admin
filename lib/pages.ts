@@ -2,7 +2,7 @@
 
 type PageType = {
     slug: string,
-    title: string
+    title: string,
 }
 export const pageData: PageType[] = [
     {

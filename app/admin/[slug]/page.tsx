@@ -1,8 +1,6 @@
-import { Button } from '@/components/ui/button'
 import { getSinglePage } from '@/lib/pages'
-import { PlusCircle } from 'lucide-react'
-import Link from 'next/link'
 import AddItemButton from './_component/add-item-button'
+import PagePanel from './_component/page-panel'
 
 export default async function ItemsPage({ params }: { params: { slug: string } }) {
 
@@ -14,6 +12,7 @@ export default async function ItemsPage({ params }: { params: { slug: string } }
     return (
         <>
             <AddItemButton slug={slug} />
+            <PagePanel title={title} data={[]} />
         </>
     )
 }
