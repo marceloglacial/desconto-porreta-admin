@@ -1,5 +1,4 @@
 'use client'
-import { Inter } from 'next/font/google'
 import Aside from '@/components/aside'
 import {
     Breadcrumb,
