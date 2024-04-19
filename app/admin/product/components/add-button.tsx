@@ -15,7 +15,7 @@ const FormAddButton: FC<FormAddButtonProps> = ({ isEditing }): JSX.Element => {
     }
 
     return (
-        <Button type='submit' size='sm' disabled={pending}>
+        <Button type='submit' size='sm' className='w-full' disabled={pending}>
             {isEditing ? message.edditing : message.adding}
         </Button>
     )

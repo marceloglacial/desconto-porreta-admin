@@ -36,7 +36,7 @@ const RemoveButton: FC<RemoveButtonProps> = ({ id }): JSX.Element => {
         <form action={formAction}>
             <Input type='hidden' value={id} id='id' name='id' />
             <Button
-                size='sm'
+                className='w-full md:w-auto'
                 variant='destructive'
                 type='submit'
                 onClick={(e) => {

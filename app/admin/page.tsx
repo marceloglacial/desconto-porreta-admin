@@ -5,10 +5,12 @@ import TableProductItem from '@/app/admin/product/components/table-product-item'
 import { Button } from '@/components/ui/button'
 import { PlusCircle } from 'lucide-react'
 import Link from 'next/link'
+import EmptyList from './product/components/empty-list'
 
 export default async function Dashboard() {
     const products = await getProducts()
     const allProducts = products.data
+    const hasItems = allProducts.length
 
     return (
         <>
@@ -27,7 +29,7 @@ export default async function Dashboard() {
                     <CardTitle>Produtos</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <Table>
+                    {!hasItems ? <EmptyList /> : <Table>
                         <TableHeader>
                             <TableRow>
                                 <TableHead className='w-[100px]'>Imagem</TableHead>
@@ -39,7 +41,7 @@ export default async function Dashboard() {
                                 <TableProductItem key={product.id} {...product} />
                             ))}
                         </TableBody>
-                    </Table>
+                    </Table>}
                 </CardContent>
                 <CardFooter>
                     <div className='text-xs text-muted-foreground'>
