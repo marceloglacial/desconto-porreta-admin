@@ -163,7 +163,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
                                             <SelectContent>
                                                 {vendors.map((vendor: IVendor) => (
                                                     <SelectItem key={vendor.id} value={vendor.id}>
-                                                        {vendor.name}
+                                                        {vendor.title}
                                                     </SelectItem>
                                                 ))}
                                             </SelectContent>

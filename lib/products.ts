@@ -20,8 +20,10 @@ const formatProduct = (product: ApiProduct): IProduct => {
         },
         vendor: {
             id: vendorInfo._id,
-            name: vendorInfo.title,
+            title: vendorInfo.title,
             slug: vendorInfo.slug,
+            logo: vendorInfo.logo,
+            image: vendorInfo.image
         },
         price: {
             regular: price.regular,
