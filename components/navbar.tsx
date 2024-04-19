@@ -1,4 +1,4 @@
-import { Home, Package, Users2, LineChart, Settings, ShoppingCart } from 'lucide-react'
+import { Home, Package, ShoppingCart } from 'lucide-react'
 import { FC } from 'react'
 import NavBarItem, { NavbarItem } from './navbar-item'
 export interface NavBarProps {
@@ -24,29 +24,13 @@ const NavBar: FC<NavBarProps> = ({ variant }): JSX.Element => {
         },
         {
             title: `Produtos`,
-            link: `/products`,
+            link: `/admin`,
             icon: <Package className='h-5 w-5' />,
         },
         {
-            title: `Pedidos`,
-            link: `/orders`,
+            title: `Lojas`,
+            link: `/admin/vendors`,
             icon: <ShoppingCart className='h-5 w-5' />,
-        },
-        {
-            title: ' Usuários',
-            link: '/users',
-            icon: <Users2 className='h-5 w-5' />,
-        },
-        {
-            title: ' Estatísticas',
-            link: '/analytics',
-            icon: <LineChart className='h-5 w-5' />,
-        },
-        {
-            title: 'Configurações',
-            link: '/settings',
-            icon: <Settings className='h-5 w-5' />,
-            variant: 'bottom',
         },
     ]
 
