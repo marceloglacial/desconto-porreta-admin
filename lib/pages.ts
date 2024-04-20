@@ -1,7 +1,7 @@
 
 
 
-export const getPages = async (): Promise<IPages[]> => {
+export const getPages = async (): Promise<IPages> => {
     'use server'
     const res = await fetch(`${process.env.API_URL}/api/pages`, { cache: 'no-store' })
     const data = await res.json()

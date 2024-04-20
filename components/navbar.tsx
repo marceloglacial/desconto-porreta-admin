@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import NavBarItem, { NavbarItem } from './navbar-item'
+import { getPages } from '@/lib/pages'
 export interface NavBarProps {
     variant: 'desktop' | 'mobile'
     items?: NavbarItem[]

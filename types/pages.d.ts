@@ -2,6 +2,7 @@ type PagesType = {
     _id: string,
     slug: string,
     title: string
+    icon: string
 }
 
 interface IPages extends IResponse {
