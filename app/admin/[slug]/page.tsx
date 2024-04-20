@@ -1,6 +1,6 @@
 import { getSinglePage } from '@/lib/pages'
-import AddItemButton from './_component/add-item-button'
-import PagePanel from './_component/page-panel'
+import AddItemButton from '@/components/add-item-button'
+import PagePanel from '@/components/page-panel'
 
 export default async function ItemsPage({ params }: { params: { slug: string } }) {
 

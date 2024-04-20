@@ -1,5 +1,5 @@
 import { getPages } from '@/lib/pages'
-import DashboardCard from './_components/dashboard-card'
+import DashboardCard from '@/components/dashboard-card'
 
 export default async function Dashboard() {
     const data = await getPages()

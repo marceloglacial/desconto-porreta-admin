@@ -5,7 +5,7 @@ import { FC } from 'react'
 
 const PageTableItem: FC<any> = ({ slug, item }): JSX.Element => {
     const { _id, title, image } = item
-    const link = `${slug}/${_id}`
+    const link = `${slug}/update/${_id}`
     return (
         <TableRow>
             <TableCell className=''>
