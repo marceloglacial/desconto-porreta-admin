@@ -1,38 +1,16 @@
-// TODO: https://github.com/marceloglacial/desconto-porreta-admin/issues/15 
-
-export type PageType = {
-    slug: string,
-    title: string,
-    data?: Object[]
-}
-const pageData: PageType[] = [
-    {
-        slug: 'products',
-        title: 'Produtos'
-    },
-    {
-        slug: 'vendors',
-        title: 'Lojas'
-    }
-]
 
 
-export interface IgetPages {
-    data: PageType[],
-    meta: Object
-}
 
-export const getPages = async (): Promise<IgetPages> => {
+export const getPages = async (): Promise<IPages[]> => {
     'use server'
-    const result = {
-        data: pageData,
-        meta: {},
-    }
-    return result
+    const res = await fetch(`${process.env.API_URL}/api/pages`, { cache: 'no-store' })
+    const data = await res.json()
+    return data
 }
 
-export const getSinglePage = async (slug: string): Promise<PageType | undefined> => {
+export const getSinglePage = async (slug: string): Promise<ISinglePage> => {
     'use server'
-    const apiData = await getPages()
-    return apiData.data.find((item) => item.slug === slug) || undefined
+    const res = await fetch(`${process.env.API_URL}/api/pages/${slug}`, { cache: 'no-store' })
+    const data = await res.json()
+    return data
 }

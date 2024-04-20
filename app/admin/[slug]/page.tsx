@@ -4,20 +4,14 @@ import PagePanel from './_component/page-panel'
 
 export default async function ItemsPage({ params }: { params: { slug: string } }) {
 
-    const pageData = await getSinglePage(params.slug)
-    if (!pageData) return <>Página não encontrada!</>
+    const pageInfo = await getSinglePage(params.slug)
+    const { status, data } = pageInfo
 
-    const { title, slug } = pageData
-
-    // TODO Move it to API
-    const getData = (slug: string) => {
-        return []
-    }
-
+    if (status === 'error') return <div>Erro ao carregar os datos</div>
     return (
         <>
-            <AddItemButton slug={slug} />
-            <PagePanel title={title} data={getData(slug)} slug={slug} />
+            <AddItemButton slug={data.slug} />
+            <PagePanel {...pageInfo} />
         </>
     )
 }

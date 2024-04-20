@@ -28,3 +28,12 @@ interface ApiVendor {
     logo: string,
     image: ApiImage
 }
+
+interface IResponse {
+    data: any,
+    status: StatusType,
+    message: string,
+    total: number
+}
+
+type StatusType = 'success' | 'error'

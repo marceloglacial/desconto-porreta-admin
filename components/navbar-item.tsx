@@ -1,11 +1,12 @@
 import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip'
-import { FC, ReactElement } from 'react'
+import { FC } from 'react'
 import Link from 'next/link'
+import Icon from './icon'
 
 export type NavbarItem = {
     title: string
     link: string
-    icon: ReactElement
+    icon: string
     variant?: 'top' | 'bottom'
     active?: boolean
 }
@@ -20,7 +21,7 @@ const NavBarItem: FC<NavbarItem> = ({ link, title, icon, active }): JSX.Element 
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <Link href={link} className={`${stylesMobile} ${stylesDesktop}`}>
-                            {icon}
+                            <Icon icon={icon} />
                             <span className='md:sr-only'>{title}</span>
                         </Link>
                     </TooltipTrigger>

@@ -14,7 +14,7 @@ const AddItemButton: FC<AddItemButtonProps> = ({ slug }): JSX.Element => {
                 <Button size='sm' className='h-8 gap-1' asChild>
                     <Link href={`/admin/${slug}/add/`}>
                         <PlusCircle className='h-3.5 w-3.5' />
-                        <span className='sm:whitespace-nowrap'>Adicionar item</span>
+                        <span className='sm:whitespace-nowrap'>Adicionar</span>
                     </Link>
                 </Button>
             </div>
