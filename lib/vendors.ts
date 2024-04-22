@@ -35,3 +35,20 @@ export const getSingleVendor = async (id: string): Promise<IVendor | undefined> 
     const apiData = await getVendors()
     return apiData.data.find((vendor) => vendor.id === id) || undefined
 }
+
+
+export const putVendors = async (formData: any) => {
+    const id = formData.get('id')
+    const res = await fetch(`${process.env.API_URL}/api/vendors/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    })
+    if (!res.ok) {
+        throw new Error('Error')
+    }
+    const apiData = await res.json()
+    return apiData.data
+}

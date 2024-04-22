@@ -1,18 +1,22 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { FC } from 'react'
 import PageTable from './page-table'
+import { PageTableItemProps } from './page-table-row'
 
-const PagePanel: FC<ISinglePage> = async (props): Promise<JSX.Element> => {
+export interface PagePanelProps {
+    title: string
+    items: PageTableItemProps[]
+    total: number
+}
 
-    const { total, data } = props
-    const { title, items } = data
+const PagePanel: FC<PagePanelProps> = ({ title, items, total }): JSX.Element => {
     return (
         <Card>
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
             </CardHeader>
             <CardContent>
-                <PageTable {...props} />
+                <PageTable items={items} />
             </CardContent>
             <CardFooter>
                 <div className='text-xs text-muted-foreground'>

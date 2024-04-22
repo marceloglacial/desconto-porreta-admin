@@ -1,13 +1,16 @@
 import { FC } from 'react';
 import EmptyList from './empty-list';
 import { Table, TableHeader, TableRow, TableHead, TableBody } from '@/components/ui/table';
-import PageTableRow from './page-table-row';
+import PageTableRow, { PageTableItemProps } from './page-table-row';
 
-const PageTable: FC<ISinglePage> = (props): JSX.Element => {
-    const { slug, title, items } = props.data
+export interface PageTableProps {
+    items: PageTableItemProps[]
+}
+
+const PageTable: FC<PageTableProps> = ({ items }): JSX.Element => {
     const hasItems = items && items?.length > 0
 
-    if (!hasItems) return <EmptyList slug={slug} title={title} />
+    if (!hasItems) return <EmptyList />
 
     return <Table>
         <TableHeader>
@@ -17,7 +20,7 @@ const PageTable: FC<ISinglePage> = (props): JSX.Element => {
             </TableRow>
         </TableHeader>
         <TableBody>
-            {items.map((item: any) => <PageTableRow key={item._id} slug={slug} item={item} />)}
+            {items.map((item) => <PageTableRow key={item._id} {...item} />)}
         </TableBody>
     </Table>
 }
