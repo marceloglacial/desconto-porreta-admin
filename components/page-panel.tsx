@@ -1,15 +1,24 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { FC } from 'react'
 import PageTable from './page-table'
+import { getItemsBySlug } from '@/lib/items'
 import { PageTableItemProps } from './page-table-row'
 
 export interface PagePanelProps {
     title: string
-    items: PageTableItemProps[]
-    total: number
+    type: string
 }
 
-const PagePanel: FC<PagePanelProps> = ({ title, items, total }): JSX.Element => {
+const PagePanel: FC<PagePanelProps> = async ({ title, type }): Promise<JSX.Element> => {
+
+    const tableData = await getItemsBySlug(type)
+    const items: PageTableItemProps[] = tableData.data.map((item: any) => {
+        return {
+            page: `/admin/${type}/${item._id}`,
+            ...item
+        }
+    })
+
     return (
         <Card>
             <CardHeader>
@@ -20,8 +29,8 @@ const PagePanel: FC<PagePanelProps> = ({ title, items, total }): JSX.Element => 
             </CardContent>
             <CardFooter>
                 <div className='text-xs text-muted-foreground'>
-                    Showing <strong>{total}</strong> of{' '}
-                    <strong>{total}</strong> products
+                    Showing <strong>{tableData.total}</strong> of{' '}
+                    <strong>{tableData.total}</strong> products
                 </div>
             </CardFooter>
         </Card>
