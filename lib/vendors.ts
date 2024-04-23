@@ -51,3 +51,18 @@ export const putVendors = async (formData: any) => {
     const apiData = await res.json()
     return apiData.data
 }
+
+export const addVendors = async (formData: any) => {
+    const res = await fetch(`${process.env.API_URL}/api/vendors`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    })
+    if (!res.ok) {
+        throw new Error('Error')
+    }
+    const apiData = await res.json()
+    return apiData.data
+}

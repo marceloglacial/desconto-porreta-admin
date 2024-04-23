@@ -2,7 +2,7 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Upload } from 'lucide-react'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CldUploadButton } from 'next-cloudinary';
 import Image, { ImageProps } from 'next/image';
 
@@ -35,7 +35,7 @@ function FormUploadImage({ item }: { item: any }) {
                     required
                 />
                 <div className='grid gap-3'>
-                    {image.src && <div className='flex items-center justify-center'>
+                    {image?.src && <div className='flex items-center justify-center'>
                         <Image alt={image?.alt} src={image.src} width={image.width} height={image.height} className=' object-cover' />
                     </div>}
                     <div className='flex flex-col items-center justify-center gap-2'>

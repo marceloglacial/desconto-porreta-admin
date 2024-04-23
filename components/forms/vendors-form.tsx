@@ -11,11 +11,11 @@ import FormUploadImage from './form-upload-image';
 import { useFormState } from 'react-dom';
 import { toast } from 'sonner';
 import { redirect } from 'next/navigation';
-import { updateVendor } from '@/actions/vendors';
+import { addVendor, updateVendor } from '@/actions/vendors';
 
 interface FormVendorsProps {
-    item: ApiVendor
-    isEditing: boolean
+    item?: ApiVendor
+    isEditing?: boolean
 }
 
 const initialState = {
@@ -23,13 +23,16 @@ const initialState = {
 }
 
 const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => {
-    const [state, formAction] = useFormState(updateVendor, initialState)
+    const allFormActions = isEditing ? updateVendor : addVendor
+    const [state, formAction] = useFormState(allFormActions, initialState)
 
     const stateActions = (state: any) => {
         if (state?.status === 'error') {
             return toast.error(state.message)
         }
         toast.success(state.message)
+        console.log(state);
+
         redirect(`/admin/vendors/${state.vendor?.id}`)
     }
     useEffect(() => {
@@ -65,7 +68,7 @@ const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => 
                             </CardHeader>
                             <CardContent>
                                 {isEditing && (
-                                    <Input type='hidden' name='id' value={item._id} />
+                                    <Input type='hidden' name='id' value={item?._id} />
                                 )}
                                 <div className='grid gap-6'>
                                     <div className='grid gap-3'>
@@ -76,7 +79,7 @@ const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => 
                                             type='text'
                                             className='w-full'
                                             required
-                                            defaultValue={item.title}
+                                            defaultValue={item?.title}
                                         />
                                     </div>
                                     <div className='grid gap-3'>
@@ -87,7 +90,7 @@ const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => 
                                             type='text'
                                             className='w-full'
                                             required
-                                            defaultValue={item.slug}
+                                            defaultValue={item?.slug}
                                         />
                                     </div>
                                 </div>
