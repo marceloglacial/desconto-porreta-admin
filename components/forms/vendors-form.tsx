@@ -19,22 +19,18 @@ interface FormVendorsProps {
 }
 
 const initialState = {
-    message: '',
     status: '',
-    action: '',
-    product: {},
 }
 
 const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => {
-
     const [state, formAction] = useFormState(updateVendor, initialState)
 
     const stateActions = (state: any) => {
-        if (state.status === 'error') {
+        if (state?.status === 'error') {
             return toast.error(state.message)
         }
         toast.success(state.message)
-        redirect(`/admin/vendors/${state.product?.id}`)
+        redirect(`/admin/vendors/${state.vendor?.id}`)
     }
     useEffect(() => {
         if (state?.status) stateActions(state)
@@ -42,7 +38,7 @@ const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => 
 
 
     return (
-        <form action={formAction} >
+        <form action={formAction}>
             <div className='mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4'>
                 <div className='flex items-center gap-4'>
                     <Button variant='outline' size='icon' className='h-7 w-7' asChild>
@@ -68,8 +64,8 @@ const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => 
                                 <CardTitle>Detalhes</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                {item && (
-                                    <Input type='hidden' name='id' value={item.id} />
+                                {isEditing && (
+                                    <Input type='hidden' name='id' value={item._id} />
                                 )}
                                 <div className='grid gap-6'>
                                     <div className='grid gap-3'>

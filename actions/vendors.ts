@@ -6,19 +6,21 @@ export async function updateVendor(prevState: any, formData: any) {
     'use server'
     try {
         const vendor = Object.fromEntries(formData)
-        await putVendors(vendor)
+        const formattedVendor: any = {
+            ...vendor,
+            image: JSON.parse(vendor.image)
+        }
+        await putVendors(formattedVendor)
         revalidatePath('/admin')
-        revalidatePath(`/admin/vendor/${vendor.id}`)
-        console.info('Produto atualizado com sucesso.')
+        revalidatePath(`/admin/vendor/${formattedVendor._id}`)
+        console.info('Atualizado com sucesso.')
         return {
-            message: 'Produto atualizado com sucesso.',
+            message: 'Atualizado com sucesso.',
             status: 'success',
-            action: 'update',
-            vendor,
+            vendor: formattedVendor,
         }
     } catch (e) {
         console.error(e)
-
         return {
             message: 'Erro ao salvar as informações.',
             status: 'error',

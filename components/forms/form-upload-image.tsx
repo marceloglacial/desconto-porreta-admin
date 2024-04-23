@@ -2,26 +2,25 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Upload } from 'lucide-react'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CldUploadButton } from 'next-cloudinary';
 import Image, { ImageProps } from 'next/image';
 
 function FormUploadImage({ item }: { item: any }) {
-    const [info, updateInfo] = useState<ImageProps>();
+    const [image, updateImage] = useState<ImageProps>(item?.image);
+
 
     const handleUpload = (result: any, { widget }: { widget: any }) => {
-        const info = result.info
-        const image: ImageProps = {
-            src: info.secure_url,
-            width: info.width,
-            height: info.height,
-            alt: ''
+        const cloudinaryImage = result.info
+        const formatedImage: ImageProps = {
+            src: cloudinaryImage.secure_url,
+            width: cloudinaryImage.width,
+            height: cloudinaryImage.height,
+            alt: 'Imagem do Item'
         }
-        updateInfo(image)
+        updateImage(formatedImage)
         widget.close()
     }
-
-    const updatedImage: ImageProps = info ? info : item?.image
 
     return (
         <Card className='overflow-hidden' x-chunk='dashboard-07-chunk-4'>
@@ -31,13 +30,13 @@ function FormUploadImage({ item }: { item: any }) {
             <CardContent>
                 <Input
                     type='hidden'
-                    name='file'
-                    defaultValue={info?.src || item?.image.src}
+                    name='image'
+                    defaultValue={JSON.stringify(image)}
                     required
                 />
                 <div className='grid gap-3'>
-                    {updatedImage && <div className='flex items-center justify-center'>
-                        <Image alt={updatedImage?.alt} src={updatedImage.src} width={updatedImage.width} height={updatedImage.height} className=' object-cover' />
+                    {image.src && <div className='flex items-center justify-center'>
+                        <Image alt={image?.alt} src={image.src} width={image.width} height={image.height} className=' object-cover' />
                     </div>}
                     <div className='flex flex-col items-center justify-center gap-2'>
                         <CldUploadButton className='flex gap-3 items-center justify-center rounded-md border border-dashed bg-white shadow-md py-1 w-full'

@@ -1,8 +1,8 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { FC } from 'react'
 import PageTable from './page-table'
-import { getItemsBySlug } from '@/lib/items'
 import { PageTableItemProps } from './page-table-row'
+import { getPageBySlug } from '@/lib/pages'
 
 export interface PagePanelProps {
     title: string
@@ -11,7 +11,7 @@ export interface PagePanelProps {
 
 const PagePanel: FC<PagePanelProps> = async ({ title, type }): Promise<JSX.Element> => {
 
-    const tableData = await getItemsBySlug(type)
+    const tableData = await getPageBySlug(type)
     const items: PageTableItemProps[] = tableData.data.map((item: any) => {
         return {
             page: `/admin/${type}/${item._id}`,

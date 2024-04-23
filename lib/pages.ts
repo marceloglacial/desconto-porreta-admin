@@ -26,3 +26,10 @@ export const getSinglePageBySlug = async (slug: string): Promise<ISinglePage> =>
     const data = await res.json()
     return data
 }
+
+export const getSingleIntem = async (slug: string, id: string): Promise<IResponse> => {
+    'use server'
+    const res = await fetch(`${process.env.API_URL}/api/${slug}/${id}`, { cache: 'no-store' })
+    const data = await res.json()
+    return data
+}

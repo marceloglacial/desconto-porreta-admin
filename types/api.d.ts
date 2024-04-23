@@ -25,7 +25,7 @@ interface ApiVendor {
     _id: string
     title: string
     slug: string
-    logo: string,
+    logo?: string,
     image: ApiImage
 }
 
