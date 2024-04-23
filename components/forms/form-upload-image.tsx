@@ -36,7 +36,7 @@ function FormUploadImage({ item }: { item: any }) {
                 />
                 <div className='grid gap-3'>
                     {image?.src && <div className='flex items-center justify-center'>
-                        <Image alt={image?.alt} src={image.src} width={image.width} height={image.height} className=' object-cover' />
+                        <Image priority alt={image?.alt} src={image.src} width={image.width} height={image.height} className=' object-cover' />
                     </div>}
                     <div className='flex flex-col items-center justify-center gap-2'>
                         <CldUploadButton className='flex gap-3 items-center justify-center rounded-md border border-dashed bg-white shadow-md py-1 w-full'

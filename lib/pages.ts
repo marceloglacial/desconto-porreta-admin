@@ -1,3 +1,5 @@
+'use server'
+
 export const getPages = async (): Promise<IPages> => {
     'use server'
     const res = await fetch(`${process.env.API_URL}/api/pages`, { cache: 'no-store' })
@@ -33,3 +35,11 @@ export const getSingleIntem = async (slug: string, id: string): Promise<IRespons
     const data = await res.json()
     return data
 }
+
+
+export const deleteItem = async (type: string, id: string): Promise<any> => {
+    'use server'
+    const res = await fetch(`${process.env.API_URL}/api/${type}/${id}`, { cache: 'no-store', method: 'DELETE' })
+    const data = await res.json()
+    return data
+};
