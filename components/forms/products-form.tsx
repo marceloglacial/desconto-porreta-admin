@@ -11,39 +11,40 @@ import FormUploadImage from './form-upload-image';
 import { useFormState } from 'react-dom';
 import { toast } from 'sonner';
 import { redirect } from 'next/navigation';
-import { addVendor, updateVendor } from '@/actions/vendors';
 import FormRemoveButton from './form-remove-button';
+import { addProduct, updateProduct } from '@/actions/products';
+import { Textarea } from '@/components/ui/textarea';
 
-interface FormVendorsProps {
-    item?: ApiVendor
+interface FormProductsProps {
+    item?: ApiProduct
     isEditing?: boolean
 }
 
 const initialState = null
 
-const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => {
-    const allFormActions = isEditing ? updateVendor : addVendor
+const FormProducts: FC<FormProductsProps> = ({ item, isEditing }): JSX.Element => {
+    const allFormActions = isEditing ? updateProduct : addProduct
     const [state, formAction] = useFormState(allFormActions, initialState)
+    const slug = 'products'
 
     const stateActions = (stateAction: any) => {
         if (stateAction?.status === 'error') {
             return toast.error(stateAction.message)
         }
         toast.success(stateAction.message)
-        redirect(`/admin/vendors/${stateAction.vendor?.id}`)
+        redirect(`/admin/${slug}/${stateAction.product?.id}`)
     }
     useEffect(() => {
         if (state?.status) stateActions(state)
     }, [state])
 
     return (
-
         <>
             <form action={formAction}>
                 <div className='mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4'>
                     <div className='flex items-center gap-4'>
                         <Button variant='outline' size='icon' className='h-7 w-7' asChild>
-                            <Link href={'/admin/vendors'}>
+                            <Link href={`/admin/${slug}`}>
                                 <ChevronLeft className='h-4 w-4' />
                                 <span className='sr-only'>Voltar</span>
                             </Link>
@@ -53,7 +54,7 @@ const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => 
                         </h1>
                         <div className='hidden items-center gap-2 md:ml-auto md:flex'>
                             <Button variant='outline' size='sm' asChild>
-                                <Link href={'/admin/vendors'}>Cancelar</Link>
+                                <Link href={`/admin/${slug}`}>Cancelar</Link>
                             </Button>
                             <FormAddButton isEditing={isEditing} />
                         </div>
@@ -81,14 +82,57 @@ const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => 
                                             />
                                         </div>
                                         <div className='grid gap-3'>
-                                            <Label htmlFor='name'>Slug</Label>
+                                            <Label htmlFor='description'>Descrição</Label>
+                                            <Textarea
+                                                id='description'
+                                                name='description'
+                                                required
+                                                className='min-h-60'
+                                                defaultValue={item?.description}
+                                            />
+                                        </div>
+                                        <div className='grid gap-3'>
+                                            <Label htmlFor='name'>Link</Label>
                                             <Input
-                                                id='slug'
-                                                name='slug'
+                                                id='link'
+                                                name='link'
+                                                type='url'
+                                                className='w-full'
+                                                required
+                                                defaultValue={item?.link}
+                                            />
+                                        </div>
+                                        <div className='grid gap-3'>
+                                            <Label htmlFor='name'>Preço Regular</Label>
+                                            <Input
+                                                id='price'
+                                                name='price-regular'
+                                                type='number'
+                                                className='w-full'
+                                                required
+                                                defaultValue={item?.price.regular}
+                                            />
+                                        </div>
+                                        <div className='grid gap-3'>
+                                            <Label htmlFor='name'>Preço com desconto</Label>
+                                            <Input
+                                                id='discount'
+                                                name='price-discount'
+                                                type='number'
+                                                className='w-full'
+                                                required
+                                                defaultValue={item?.price.discount}
+                                            />
+                                        </div>
+                                        <div className='grid gap-3'>
+                                            <Label htmlFor='name'>Vendor</Label>
+                                            <Input
+                                                id='vendor'
+                                                name='vendor'
                                                 type='text'
                                                 className='w-full'
                                                 required
-                                                defaultValue={item?.slug}
+                                                defaultValue={item?.vendor}
                                             />
                                         </div>
                                     </div>
@@ -101,7 +145,7 @@ const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => 
                     </div>
                     <div className='flex items-center gap-2 md:hidden'>
                         <Button variant='outline' className='w-full' asChild>
-                            <Link href={'/admin/vendors'}>Cancelar</Link>
+                            <Link href={`/admin/${slug}`}>Cancelar</Link>
                         </Button>
                         <FormAddButton isEditing={isEditing} />
                     </div>
@@ -116,7 +160,7 @@ const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => 
                                     <CardHeader>
                                         <CardTitle>Apagar Produto</CardTitle>
                                         <CardDescription>Essa ação é irreversível.</CardDescription>
-                                        <FormRemoveButton type={'vendors'} id={item?._id} />
+                                        <FormRemoveButton type={slug} id={item?._id} />
                                     </CardHeader>
                                 </Card>
                             </div>
@@ -127,4 +171,4 @@ const FormVendors: FC<FormVendorsProps> = ({ item, isEditing }): JSX.Element => 
         </>
     )
 }
-export default FormVendors
+export default FormProducts

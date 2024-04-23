@@ -1,4 +1,5 @@
 import ErrorState from '@/components/error-state'
+import FormProducts from '@/components/forms/products-form'
 import FormVendors from '@/components/forms/vendors-form'
 import { ReactElement } from 'react'
 
@@ -10,7 +11,7 @@ const UpdateItemPage = async ({ params }: { params: { id: string, slug: string }
 
     const forms: FormsType = {
         vendors: <FormVendors />,
-        products: <>Form Product</>
+        products: <FormProducts />
     }
     return forms[params.slug]
 }
