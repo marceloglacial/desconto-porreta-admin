@@ -1,10 +1,10 @@
-import { Home, Package, ShoppingCart } from 'lucide-react'
 import { FC } from 'react'
 import NavBarItem, { NavbarItem } from './navbar-item'
 export interface NavBarProps {
     variant: 'desktop' | 'mobile'
     items?: NavbarItem[]
 }
+
 
 const NavBar: FC<NavBarProps> = ({ variant }): JSX.Element => {
     const isMobile = variant === 'mobile'
@@ -19,18 +19,18 @@ const NavBar: FC<NavBarProps> = ({ variant }): JSX.Element => {
         {
             title: `Home`,
             link: `/admin`,
-            icon: <Home className='h-5 w-5' />,
+            icon: 'home',
             active: true,
         },
         {
             title: `Produtos`,
-            link: `/admin`,
-            icon: <Package className='h-5 w-5' />,
+            link: `/admin/products`,
+            icon: 'package',
         },
         {
             title: `Lojas`,
             link: `/admin/vendors`,
-            icon: <ShoppingCart className='h-5 w-5' />,
+            icon: 'shoppingcart',
         },
     ]
 

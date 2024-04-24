@@ -1,52 +1,40 @@
 'use client'
-import { addProduct, removeProduct, updateProduct } from '@/actions/products'
-import { Button } from '@/components/ui/button'
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
-import { ChevronLeft, Upload } from 'lucide-react'
-import FormAddButton from './add-button'
-import Link from 'next/link'
-import { FC, useEffect } from 'react'
-import { useFormState } from 'react-dom'
-import { toast } from 'sonner'
-import { redirect } from 'next/navigation'
-import RemoveButton from './remove-button'
-import UploadImage from './upload-image'
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
+import { ChevronLeft } from 'lucide-react';
+import Link from 'next/link';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { FC, useEffect } from 'react';
+import FormAddButton from './form-add-button';
+import FormUploadImage from './form-upload-image';
+import { useFormState } from 'react-dom';
+import { toast } from 'sonner';
+import { redirect } from 'next/navigation';
+import FormRemoveButton from './form-remove-button';
+import { addProduct, updateProduct } from '@/actions/products';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 
-interface ProductFormProps {
-    product?: IProduct
-    vendors: IVendor[]
-    isEditing: boolean
+interface FormProductsProps {
+    item?: ApiProduct
+    isEditing?: boolean
+    vendors?: IVendor[]
 }
 
-const initialState = {
-    message: '',
-    status: '',
-    action: '',
-    product: {},
-}
+const initialState = null
 
-const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX.Element => {
-    const hasVendors = vendors.length > 0
-    const formActions = product ? updateProduct : addProduct
+const FormProducts: FC<FormProductsProps> = ({ item, isEditing, vendors }): JSX.Element => {
+    const allFormActions = isEditing ? updateProduct : addProduct
+    const [state, formAction] = useFormState(allFormActions, initialState)
+    const slug = 'products'
 
-    const [state, formAction] = useFormState(formActions, initialState)
-
-    const stateActions = (state: any) => {
-        if (state.status === 'error') {
-            return toast.error(state.message)
+    const stateActions = (stateAction: any) => {
+        if (stateAction?.status === 'error') {
+            return toast.error(stateAction.message)
         }
-        toast.success(state.message)
-        redirect(`/admin/product/${state.product?.id}`)
+        toast.success(stateAction.message)
+        redirect(`/admin/${slug}/${stateAction.product?.id}`)
     }
     useEffect(() => {
         if (state?.status) stateActions(state)
@@ -58,30 +46,30 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
                 <div className='mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4'>
                     <div className='flex items-center gap-4'>
                         <Button variant='outline' size='icon' className='h-7 w-7' asChild>
-                            <Link href={'/admin/'}>
+                            <Link href={`/admin/${slug}`}>
                                 <ChevronLeft className='h-4 w-4' />
                                 <span className='sr-only'>Voltar</span>
                             </Link>
                         </Button>
                         <h1 className='flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0'>
-                            {product ? 'Editar' : 'Adicionar'} produto
+                            {item ? 'Editar' : 'Adicionar'} item
                         </h1>
                         <div className='hidden items-center gap-2 md:ml-auto md:flex'>
                             <Button variant='outline' size='sm' asChild>
-                                <Link href={'/admin/'}>Cancelar</Link>
+                                <Link href={`/admin/${slug}`}>Cancelar</Link>
                             </Button>
-                            <FormAddButton isEditing={!!product} />
+                            <FormAddButton isEditing={isEditing} />
                         </div>
                     </div>
                     <div className='grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8'>
                         <div className='grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8'>
                             <Card x-chunk='dashboard-07-chunk-0'>
                                 <CardHeader>
-                                    <CardTitle>Detalhes do Produto</CardTitle>
+                                    <CardTitle>Detalhes</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    {product && (
-                                        <Input type='hidden' name='id' value={product?.id} />
+                                    {isEditing && (
+                                        <Input type='hidden' name='id' defaultValue={item?._id} />
                                     )}
                                     <div className='grid gap-6'>
                                         <div className='grid gap-3'>
@@ -92,7 +80,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
                                                 type='text'
                                                 className='w-full'
                                                 required
-                                                defaultValue={product?.title}
+                                                defaultValue={item?.title}
                                             />
                                         </div>
                                         <div className='grid gap-3'>
@@ -102,7 +90,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
                                                 name='description'
                                                 required
                                                 className='min-h-60'
-                                                defaultValue={product?.description}
+                                                defaultValue={item?.description}
                                             />
                                         </div>
                                         <div className='grid gap-3'>
@@ -113,7 +101,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
                                                 type='url'
                                                 className='w-full'
                                                 required
-                                                defaultValue={product?.link}
+                                                defaultValue={item?.link}
                                             />
                                         </div>
                                         <div className='grid gap-3'>
@@ -124,7 +112,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
                                                 type='number'
                                                 className='w-full'
                                                 required
-                                                defaultValue={product?.price.regular}
+                                                defaultValue={item?.price.regular}
                                             />
                                         </div>
                                         <div className='grid gap-3'>
@@ -135,52 +123,37 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
                                                 type='number'
                                                 className='w-full'
                                                 required
-                                                defaultValue={product?.price.discount}
+                                                defaultValue={item?.price.discount}
                                             />
+                                        </div>
+                                        <div className='grid gap-3'>
+                                            <Label htmlFor='name'>Vendor</Label>
+                                            <Select required name='vendor' defaultValue={item?.vendor}>
+                                                <SelectTrigger aria-label='Selecione a loja'>
+                                                    <SelectValue placeholder='Selecione a loja' />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {vendors?.map((vendorItem: any) => (
+                                                        <SelectItem key={vendorItem._id} value={vendorItem._id}>
+                                                            {vendorItem.title}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
                                         </div>
                                     </div>
                                 </CardContent>
                             </Card>
-                            <Card x-chunk='dashboard-07-chunk-2'>
-                                <CardHeader>
-                                    <CardTitle>Loja afiliada</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    {!hasVendors && (
-                                        <span>
-                                            Nenuma loja cadastrada.{' '}
-                                            <Link href={`/vendors/new`} className=' font-bold'>
-                                                Clique aqui
-                                            </Link>
-                                            para cadastrar a loja parceira
-                                        </span>
-                                    )}
-                                    {hasVendors && (
-                                        <Select required name='vendor' value={product?.vendor.id}>
-                                            <SelectTrigger aria-label='Selecione a loja'>
-                                                <SelectValue placeholder='Selecione a loja' />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {vendors.map((vendor: IVendor) => (
-                                                    <SelectItem key={vendor.id} value={vendor.id}>
-                                                        {vendor.name}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
-                                    )}
-                                </CardContent>
-                            </Card>
                         </div>
                         <div className='grid auto-rows-max items-start gap-4 lg:gap-8'>
-                            <UploadImage product={product} />
+                            <FormUploadImage item={item} />
                         </div>
                     </div>
                     <div className='flex items-center gap-2 md:hidden'>
                         <Button variant='outline' className='w-full' asChild>
-                            <Link href={'/admin/'}>Cancelar</Link>
+                            <Link href={`/admin/${slug}`}>Cancelar</Link>
                         </Button>
-                        <FormAddButton isEditing={!!product} />
+                        <FormAddButton isEditing={isEditing} />
                     </div>
                 </div>
             </form>
@@ -193,7 +166,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
                                     <CardHeader>
                                         <CardTitle>Apagar Produto</CardTitle>
                                         <CardDescription>Essa ação é irreversível.</CardDescription>
-                                        <RemoveButton id={product?.id} />
+                                        <FormRemoveButton type={slug} id={item?._id} />
                                     </CardHeader>
                                 </Card>
                             </div>
@@ -204,4 +177,4 @@ const ProductForm: FC<ProductFormProps> = ({ product, vendors, isEditing }): JSX
         </>
     )
 }
-export default ProductForm
+export default FormProducts

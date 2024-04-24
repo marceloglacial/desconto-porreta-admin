@@ -1,6 +1,7 @@
 interface IVendor {
     id: string
-    name: string
+    title: string
     slug: string
-    logo?: IImage
+    logo?: string,
+    image: IImage
 }

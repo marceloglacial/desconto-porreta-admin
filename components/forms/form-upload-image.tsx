@@ -6,22 +6,21 @@ import { useState } from 'react';
 import { CldUploadButton } from 'next-cloudinary';
 import Image, { ImageProps } from 'next/image';
 
-function UploadImage({ product }: { product: any }) {
-    const [info, updateInfo] = useState<ImageProps>();
+function FormUploadImage({ item }: { item: any }) {
+    const [image, updateImage] = useState<ImageProps>(item?.image);
+
 
     const handleUpload = (result: any, { widget }: { widget: any }) => {
-        const info = result.info
-        const image: ImageProps = {
-            src: info.secure_url,
-            width: info.width,
-            height: info.height,
-            alt: ''
+        const cloudinaryImage = result.info
+        const formatedImage: ImageProps = {
+            src: cloudinaryImage.secure_url,
+            width: cloudinaryImage.width,
+            height: cloudinaryImage.height,
+            alt: 'Imagem do Item'
         }
-        updateInfo(image)
+        updateImage(formatedImage)
         widget.close()
     }
-
-    const updatedImage: ImageProps = info ? info : product?.image
 
     return (
         <Card className='overflow-hidden' x-chunk='dashboard-07-chunk-4'>
@@ -31,13 +30,13 @@ function UploadImage({ product }: { product: any }) {
             <CardContent>
                 <Input
                     type='hidden'
-                    name='file'
-                    defaultValue={info?.src || product?.image.src}
+                    name='image'
+                    defaultValue={JSON.stringify(image)}
                     required
                 />
                 <div className='grid gap-3'>
-                    {updatedImage && <div className='flex items-center justify-center'>
-                        <Image alt={updatedImage?.alt} src={updatedImage.src} width={updatedImage.width} height={updatedImage.height} className=' object-cover' />
+                    {image?.src && <div className='flex items-center justify-center'>
+                        <Image priority alt={image?.alt} src={image.src} width={image.width} height={image.height} className=' object-cover' />
                     </div>}
                     <div className='flex flex-col items-center justify-center gap-2'>
                         <CldUploadButton className='flex gap-3 items-center justify-center rounded-md border border-dashed bg-white shadow-md py-1 w-full'
@@ -50,7 +49,7 @@ function UploadImage({ product }: { product: any }) {
                         >
                             <Upload className='h-8 w-4 text-muted-foreground' />
                             <span>
-                                {product ? 'Alterar' : 'Adicionar'} Imagem
+                                {item ? 'Alterar' : 'Adicionar'} Imagem
                             </span>
                         </CldUploadButton>
 
@@ -60,4 +59,4 @@ function UploadImage({ product }: { product: any }) {
         </Card>
     )
 }
-export default UploadImage
+export default FormUploadImage
