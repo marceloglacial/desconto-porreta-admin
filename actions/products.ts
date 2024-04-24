@@ -74,7 +74,7 @@ export async function updateProduct(prevState: any, formData: any) {
         console.error(e)
 
         return {
-            message: 'Erro ao salvar as informações.',
+            message: 'Erro ao atualizar as informações.',
             status: 'error',
             prevState,
         }

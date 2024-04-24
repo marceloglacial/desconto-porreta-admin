@@ -164,7 +164,7 @@ const FormProducts: FC<FormProductsProps> = ({ item, isEditing, vendors }): JSX.
                             <div className='grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8'>
                                 <Card className='overflow-hidden text-center md:text-left' x-chunk='dashboard-07-chunk-4'>
                                     <CardHeader>
-                                        <CardTitle>Apagar Produto</CardTitle>
+                                        <CardTitle>Apagar Item</CardTitle>
                                         <CardDescription>Essa ação é irreversível.</CardDescription>
                                         <FormRemoveButton type={slug} id={item?._id} />
                                     </CardHeader>

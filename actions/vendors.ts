@@ -29,7 +29,7 @@ export async function updateVendor(prevState: any, formData: any) {
     } catch (e) {
         console.error(e)
         return {
-            message: 'Erro ao salvar as informações.',
+            message: 'Erro ao atualizar as informações.',
             status: 'error',
             prevState,
         }
@@ -40,23 +40,33 @@ export async function addVendor(prevState: any, formData: any) {
     'use server'
     try {
         const vendor = Object.fromEntries(formData)
+
+        if (!vendor.image) {
+            return {
+                message: 'Favor adicionar a imagem.',
+                status: 'error',
+                prevState
+            }
+
+        }
+
         const formattedVendor: any = formatVendor(vendor)
         delete formattedVendor.id
         const result = await addVendors(formattedVendor)
 
 
         revalidatePath('/admin')
-        console.info('Atualizado com sucesso.')
+        console.info('Adicionado com sucesso.')
 
         return {
-            message: 'Atualizado com sucesso.',
+            message: 'Adicionado com sucesso.',
             status: 'success',
             vendor: { id: result },
         }
     } catch (e) {
         console.error(e)
         return {
-            message: 'Erro ao salvar as informações.',
+            message: 'Erro ao adicionar a loja.',
             status: 'error',
             prevState,
         }
