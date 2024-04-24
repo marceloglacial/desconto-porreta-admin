@@ -25,7 +25,7 @@ function FormUploadImage({ item }: { item: any }) {
     return (
         <Card className='overflow-hidden' x-chunk='dashboard-07-chunk-4'>
             <CardHeader>
-                <CardTitle>Imagem do Produto</CardTitle>
+                <CardTitle>Imagem do Item</CardTitle>
             </CardHeader>
             <CardContent>
                 <Input
