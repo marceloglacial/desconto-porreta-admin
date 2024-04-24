@@ -3,20 +3,6 @@ interface IgetVendors {
     meta: Object
 }
 
-const formatVendor = (vendor: ApiVendor): IVendor => {
-    return {
-        id: vendor._id,
-        title: vendor.title,
-        slug: vendor.slug,
-        logo: vendor.logo,
-        image: {
-            src: vendor.image.src,
-            alt: vendor.image.alt,
-            width: vendor.image.width,
-            height: vendor.image.height,
-        },
-    }
-}
 
 export const getVendors = async (): Promise<IgetVendors> => {
     const res = await fetch(`${process.env.API_URL}/api/vendors`)
@@ -24,11 +10,7 @@ export const getVendors = async (): Promise<IgetVendors> => {
         throw new Error('Error')
     }
     const apiData = await res.json()
-    const result = {
-        data: apiData.map((item: ApiVendor) => formatVendor(item)),
-        meta: apiData?.meta,
-    }
-    return result
+    return apiData
 }
 
 export const getSingleVendor = async (id: string): Promise<IVendor | undefined> => {

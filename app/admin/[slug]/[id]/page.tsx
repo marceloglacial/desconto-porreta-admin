@@ -2,17 +2,13 @@ import ErrorState from '@/components/error-state'
 import FormProducts from '@/components/forms/products-form'
 import FormVendors from '@/components/forms/vendors-form'
 import { getSingleIntem } from '@/lib/pages'
+import { getVendors } from '@/lib/vendors'
 import { ReactElement } from 'react'
 
 type FormsType = {
     [k: string]: ReactElement
 }
 
-const getVendors = async () => {
-    const vendors = await fetch(`${process.env.API_URL}/api/vendors`)
-    const appData = await vendors.json()
-    return appData
-}
 
 const UpdateItemPage = async ({ params }: { params: { id: string, slug: string } }) => {
     const data = await getSingleIntem(params.slug, params.id)
