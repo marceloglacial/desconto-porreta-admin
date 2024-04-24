@@ -1,55 +1,13 @@
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { getProducts } from '@/lib/products'
-import TableProductItem from '@/app/admin/product/components/table-product-item'
-import { Button } from '@/components/ui/button'
-import { PlusCircle } from 'lucide-react'
-import Link from 'next/link'
-import EmptyList from './product/components/empty-list'
+import { getPages } from '@/lib/pages'
+import DashboardCard from '@/components/dashboard-card'
 
 export default async function Dashboard() {
-    const products = await getProducts()
-    const allProducts = products.data
-    const hasItems = allProducts.length
+    const data = await getPages()
+    const cards = data.data
 
     return (
-        <>
-            <div className='flex items-center'>
-                <div className='flex items-center gap-2'>
-                    <Button size='sm' className='h-8 gap-1' asChild>
-                        <Link href={`/admin/product/add/`}>
-                            <PlusCircle className='h-3.5 w-3.5' />
-                            <span className='sm:whitespace-nowrap'>Adicionar Novo Produto</span>
-                        </Link>
-                    </Button>
-                </div>
-            </div>
-            <Card>
-                <CardHeader>
-                    <CardTitle>Produtos</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    {!hasItems ? <EmptyList /> : <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className='w-[100px]'>Imagem</TableHead>
-                                <TableHead>Nome</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {allProducts.map((product) => (
-                                <TableProductItem key={product.id} {...product} />
-                            ))}
-                        </TableBody>
-                    </Table>}
-                </CardContent>
-                <CardFooter>
-                    <div className='text-xs text-muted-foreground'>
-                        Showing <strong>{allProducts.length}</strong> of{' '}
-                        <strong>{allProducts.length}</strong> products
-                    </div>
-                </CardFooter>
-            </Card>
-        </>
+        <div className='grid grid-cols-3 gap-8'>
+            {cards.map((card) => <DashboardCard key={card._id} {...card} />)}
+        </div>
     )
 }

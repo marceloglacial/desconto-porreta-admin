@@ -7,7 +7,7 @@ interface ErrorStateProps {
 
 const ErrorState: FC<ErrorStateProps> = ({ title, message }): JSX.Element => {
     return (
-        <div className=' w-screen h-screen flex flex-col gap-4 items-center justify-center text-red-600'>
+        <div className=' w-screen h-screen max-h-96 flex flex-col gap-4 items-center justify-center text-red-600'>
             <h1 className=' text-2xl'>{title}</h1>
             <p>{message}</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-24 h-24">

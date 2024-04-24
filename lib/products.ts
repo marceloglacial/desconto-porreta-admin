@@ -20,8 +20,10 @@ const formatProduct = (product: ApiProduct): IProduct => {
         },
         vendor: {
             id: vendorInfo._id,
-            name: vendorInfo.title,
+            title: vendorInfo.title,
             slug: vendorInfo.slug,
+            logo: vendorInfo.logo,
+            image: vendorInfo.image
         },
         price: {
             regular: price.regular,
@@ -68,7 +70,7 @@ export const postProducts = async (postData: any) => {
 }
 
 export const putProducts = async (formData: any) => {
-    const res = await fetch(`${process.env.API_URL}/api/products`, {
+    const res = await fetch(`${process.env.API_URL}/api/products/${formData.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

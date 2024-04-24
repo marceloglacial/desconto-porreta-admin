@@ -12,8 +12,8 @@ interface ApiProduct {
 interface ApiImage {
     src: string
     alt: string
-    width?: number
-    height?: number
+    width: number
+    height: number
 }
 
 interface ApiPrice {
@@ -25,5 +25,15 @@ interface ApiVendor {
     _id: string
     title: string
     slug: string
-    logo: string
+    logo?: string,
+    image: ApiImage
 }
+
+interface IResponse {
+    data: any,
+    status: StatusType,
+    message: string,
+    total: number
+}
+
+type StatusType = 'success' | 'error'

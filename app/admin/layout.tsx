@@ -87,9 +87,6 @@ export default function RootLayout({
                                     <DropdownMenuContent align='end'>
                                         <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
                                         <DropdownMenuSeparator />
-                                        {/* <DropdownMenuItem>configurações</DropdownMenuItem>
-                                                <DropdownMenuItem>Ajuda</DropdownMenuItem>
-                                                <DropdownMenuSeparator /> */}
                                         <DropdownMenuItem>
                                             <Link className='w-full' href='/api/auth/logout'>Sair</Link>
                                         </DropdownMenuItem>
