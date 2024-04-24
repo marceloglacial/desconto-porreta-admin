@@ -8,14 +8,21 @@ type FormsType = {
     [k: string]: ReactElement
 }
 
+const getVendors = async () => {
+    const vendors = await fetch(`${process.env.API_URL}/api/vendors`)
+    const appData = await vendors.json()
+    return appData
+}
+
 const UpdateItemPage = async ({ params }: { params: { id: string, slug: string } }) => {
     const data = await getSingleIntem(params.slug, params.id)
+    const vendors = await getVendors()
 
     if (data.status === 'error') return <ErrorState title={'Error'} message={'Erro ao carregar o formulário'} />
 
     const forms: FormsType = {
         vendors: <FormVendors item={data.data} isEditing />,
-        products: <FormProducts item={data.data} isEditing />,
+        products: <FormProducts item={data.data} vendors={(vendors.data)} isEditing />,
     }
     return forms[params.slug]
 }

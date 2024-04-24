@@ -14,15 +14,17 @@ import { redirect } from 'next/navigation';
 import FormRemoveButton from './form-remove-button';
 import { addProduct, updateProduct } from '@/actions/products';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 
 interface FormProductsProps {
     item?: ApiProduct
     isEditing?: boolean
+    vendors?: IVendor[]
 }
 
 const initialState = null
 
-const FormProducts: FC<FormProductsProps> = ({ item, isEditing }): JSX.Element => {
+const FormProducts: FC<FormProductsProps> = ({ item, isEditing, vendors }): JSX.Element => {
     const allFormActions = isEditing ? updateProduct : addProduct
     const [state, formAction] = useFormState(allFormActions, initialState)
     const slug = 'products'
@@ -126,14 +128,18 @@ const FormProducts: FC<FormProductsProps> = ({ item, isEditing }): JSX.Element =
                                         </div>
                                         <div className='grid gap-3'>
                                             <Label htmlFor='name'>Vendor</Label>
-                                            <Input
-                                                id='vendor'
-                                                name='vendor'
-                                                type='text'
-                                                className='w-full'
-                                                required
-                                                defaultValue={item?.vendor}
-                                            />
+                                            <Select required name='vendor' defaultValue={item?.vendor}>
+                                                <SelectTrigger aria-label='Selecione a loja'>
+                                                    <SelectValue placeholder='Selecione a loja' />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {vendors?.map((vendorItem: any) => (
+                                                        <SelectItem key={vendorItem._id} value={vendorItem._id}>
+                                                            {vendorItem.title}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
                                         </div>
                                     </div>
                                 </CardContent>
