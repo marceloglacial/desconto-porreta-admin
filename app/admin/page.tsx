@@ -6,7 +6,7 @@ export default async function Dashboard() {
     const cards = data.data
 
     return (
-        <div className='grid grid-cols-3 gap-8'>
+        <div className='grid md:grid-cols-3 gap-4'>
             {cards.map((card) => <DashboardCard key={card._id} {...card} />)}
         </div>
     )
