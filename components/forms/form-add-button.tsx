@@ -10,8 +10,8 @@ const FormAddButton: FC<FormAddButtonProps> = ({ isEditing }): JSX.Element => {
     const { pending } = useFormStatus()
 
     const message = {
-        adding: pending ? 'Adicionando ...' : 'Adicionar Produto',
-        edditing: pending ? 'Salvando ...' : 'Salvar Produto',
+        adding: pending ? 'Adicionando ...' : 'Adicionar Item',
+        edditing: pending ? 'Salvando ...' : 'Salvar Item',
     }
 
     return (

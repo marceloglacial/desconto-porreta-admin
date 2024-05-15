@@ -5,7 +5,7 @@ interface IgetVendors {
 
 
 export const getVendors = async (): Promise<IgetVendors> => {
-    const res = await fetch(`${process.env.API_URL}/api/vendors`)
+    const res = await fetch(`${process.env.API_URL}/api/vendors`, { cache: 'no-cache' })
     if (!res.ok) {
         throw new Error('Error')
     }

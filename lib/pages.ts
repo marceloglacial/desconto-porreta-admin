@@ -2,14 +2,14 @@
 
 export const getPages = async (): Promise<IPages> => {
     'use server'
-    const res = await fetch(`${process.env.API_URL}/api/pages`, { cache: 'no-store' })
+    const res = await fetch(`${process.env.API_URL}/api/pages`, { cache: 'no-cache' })
     const data = await res.json()
     return data
 }
 
 export const getPageBySlug = async (slug: string): Promise<IPages> => {
     'use server'
-    const res = await fetch(`${process.env.API_URL}/api/${slug}`, { cache: 'no-store' })
+    const res = await fetch(`${process.env.API_URL}/api/${slug}`, { cache: 'no-cache' })
     const data = await res.json()
     return data
 }
@@ -17,21 +17,21 @@ export const getPageBySlug = async (slug: string): Promise<IPages> => {
 
 export const getSinglePage = async (id: string): Promise<ISinglePage> => {
     'use server'
-    const res = await fetch(`${process.env.API_URL}/api/pages/${id}`, { cache: 'no-store' })
+    const res = await fetch(`${process.env.API_URL}/api/pages/${id}`, { cache: 'no-cache' })
     const data = await res.json()
     return data
 }
 
 export const getSinglePageBySlug = async (slug: string): Promise<ISinglePage> => {
     'use server'
-    const res = await fetch(`${process.env.API_URL}/api/pages/slug/${slug}`, { cache: 'no-store' })
+    const res = await fetch(`${process.env.API_URL}/api/pages/slug/${slug}`, { cache: 'no-cache' })
     const data = await res.json()
     return data
 }
 
 export const getSingleIntem = async (slug: string, id: string): Promise<IResponse> => {
     'use server'
-    const res = await fetch(`${process.env.API_URL}/api/${slug}/${id}`, { cache: 'no-store' })
+    const res = await fetch(`${process.env.API_URL}/api/${slug}/${id}`, { cache: 'no-cache' })
     const data = await res.json()
     return data
 }
@@ -39,7 +39,7 @@ export const getSingleIntem = async (slug: string, id: string): Promise<IRespons
 
 export const deleteItem = async (type: string, id: string): Promise<any> => {
     'use server'
-    const res = await fetch(`${process.env.API_URL}/api/${type}/${id}`, { cache: 'no-store', method: 'DELETE' })
+    const res = await fetch(`${process.env.API_URL}/api/${type}/${id}`, { cache: 'no-cache', method: 'DELETE' })
     const data = await res.json()
     return data
 };
