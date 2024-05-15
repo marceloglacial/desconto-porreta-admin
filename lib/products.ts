@@ -42,7 +42,7 @@ export const getCurrency = (value: number): string =>
 
 export const getProducts = async (): Promise<IgetProducts> => {
     'use server'
-    const res = await fetch(`${process.env.API_URL}/api/products`, { cache: 'no-store' })
+    const res = await fetch(`${process.env.API_URL}/api/products`, { cache: 'no-cache' })
     if (!res.ok) {
         throw new Error('Error while getting product list. Please check you API connection.')
     }
